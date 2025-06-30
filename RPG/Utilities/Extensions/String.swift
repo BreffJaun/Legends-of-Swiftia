@@ -8,6 +8,7 @@
 import Foundation
 
 extension String {
+    // created with Input from ChatGPT
     func centered(padding width: Int) -> String {
         let totalPadding = max(0, width - self.count)
         let leftPadding = totalPadding / 2
