@@ -8,7 +8,6 @@
 | ✅   |                      | #243   | Create project folder structure: Classes, Structs, Utilities                                      |
 | ✅   |                      | #243   | Move classes to separate files under Classes folder                                               |
 | ✅   |                      | #243   | Move structs to separate files under Structs folder                                               |
-| ✅   |                      | #243   | Consolidate Enums, Extensions, Protocols into respective single files under Utilities folder      |
 | ✅   | Tuesday, 01.07.2025  | #244   | Implement superclass `Character` with properties: `name`, `hp`, `maxHp`                           |
 | ✅   |                      | #244   | Create empty subclasses `Hero` and `Enemy` inheriting from `Character`                            |
 | ✅   |                      | #245   | Implement 3 specialized `Hero` subclasses (e.g., `Mage`, `Warrior`, `Healer`)                     |
@@ -24,20 +23,18 @@
 | ✅   |                      | #247   | Implement `menu()` method in `Bag` for item selection via console input                           |
 | ✅   |                      | #247   | Implement item usage decrement/removal logic                                                      |
 | ✅   |                      | #247   | Plan integration of `Bag` with heroes for later use                                               |
-| ⬜   | Friday, 04.07.2025   | #248   | Initialize `Game` class and implement `printStatus()`                                             |
-| ⬜   |                      | #249   | Implement round-based system (loop or recursion)                                                  |
-| ⬜   |                      | #249   | Allow hero action selection via console (attack, heal, use item)                                  |
-| ⬜   |                      | #249   | Allow hero to select which enemy to attack                                                        |
-| ⬜   |                      | #250   | Implement enemy actions with random selection                                                     |
-| ⬜   |                      | #250   | Enemy performs actions against heroes                                                             |
-| ⬜   |                      | #250   | Update HP and handle action resolution                                                            |
-| ⬜   |                      | #251   | Implement status effects (poison, paralyze)                                                       |
-| ⬜   |                      | #251   | Add status effect logic in round system                                                           |
-| ⬜   |                      | #251   | Improve console output for status effects and actions                                             |
-| ⬜   |                      | #251   | Add clear game-end detection and output winning team message                                      |
-| ⬜   |                      | #252   | Create new enemy class `Minion` (Scherge)                                                         |
-| ⬜   |                      | #252   | Implement condition for adding `Minion` once (e.g., main enemy HP ≤ 50%)                          |
-| ⬜   |                      | #252   | Allow heroes to choose new enemies as targets                                                     |
-| ⬜   |                      | #252   | Implement `Minion` as shield for main enemy                                                       |
+| ✅   |                      | #248   | Create Enums into respective single file under Utilities folder                                   |
+| ✅   |                      | #249   | Create Extensions into respective single file under Utilities folder                              |
+| ✅   |                      | #250   | Create Protocols into respective single file under Utilities folder                               |
+| ⬜   | Friday, 04.07.2025   | #251   | Initialize `Game` class and implement `printStatus()`                                             |
+| ⬜   |                      | #251   | Implement round-based system (loop or recursion)                                                  |
+| ⬜   |                      | #251   | Allow hero action selection via console (attack, heal, use item)                                  |
+| ⬜   |                      | #251   | Allow hero to select which enemy to attack                                                        |
+| ⬜   |                      | #252   | Implement enemy actions with random selection                                                     |
+| ⬜   |                      | #252   | Enemy performs actions against heroes                                                             |
+| ⬜   |                      | #252   | Update HP and handle action resolution                                                            |
+| ⬜   |                      | #252   | Implement status effects (poison, paralyze)                                                       |
+| ⬜   |                      | #252   | Add status effect logic in round system                                                           |
+
 
 

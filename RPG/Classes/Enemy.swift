@@ -57,6 +57,11 @@ class Boss: Enemy {
             return nil
         }
         
+        guard hp <= maxHp / 2 else {
+            print("\(name) is not weak enough to summon a minion yet!")
+            return nil
+        }
+        
         print("\(name) summoned a minion!")
         let newMinion = Minion(name: "Minion from \(name)", hp: 30, maxHp: 30)
         minion = newMinion
