@@ -88,7 +88,7 @@
 | ⬜   |                      | ---    | Optional: Add quality-of-life improvements or micro-features                                      |
 
 
-<img src=/RPG_UML.png/>
+<img src=RPG_UML.png/>
 
 
 
