@@ -31,6 +31,7 @@ class Hero: Character {
             
         var running = true
         while running {
+            clearScreen()
             boxedScreen(title: "What would you like to do?", lines: options)
             print("Your choice: ", terminator: "")
             

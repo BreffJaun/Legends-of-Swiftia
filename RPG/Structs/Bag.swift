@@ -8,7 +8,7 @@
 import Foundation
 
 struct Bag {
-    var items: [Item]
+    var items: [Item] = []
     
     mutating func menu(currentHero: Character) {
         guard !items.isEmpty else {
@@ -18,12 +18,12 @@ struct Bag {
         
         print("Items in your bag:")
         items.enumerated().forEach { (index, item) in
-            print("[\(index)] \(item.description)")
+            print("[\(index + 1)] \(item.description)")
         }
         
         print("Choose an item number to use (or press Enter to cancel): ", terminator: "")
         if let input = readLine(), let choice = Int(input), choice >= 0 && choice < items.count {
-            var item = items[choice]
+            var item = items[choice - 1]
             item.use(target: currentHero)
             
             if item.isDepleted() {

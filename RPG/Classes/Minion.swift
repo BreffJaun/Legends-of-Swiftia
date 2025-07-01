@@ -9,11 +9,11 @@ import Foundation
 
 
 class Minion: Enemy {
-    override init(name: String, hp: Int, maxHp: Int) {
+    init(name: String, hp: Int) {
         super.init(
             name: name,
             hp: hp,
-            maxHp: maxHp
+            maxHp: 30
         )
     }
     

@@ -98,4 +98,13 @@ func pagedBox(title: String,
     }
 }
 
+func pressEnterToContinue() {
+    print("Press Enter to continue...", terminator: "")
+    _ = readLine()
+}
+
+func waitABit(sec: Double) {
+    Thread.sleep(forTimeInterval: sec)
+}
+
 

@@ -26,11 +26,11 @@
 | ✅   |                      | #248   | Create Enums into respective single file under Utilities folder                                   |
 | ✅   |                      | #249   | Create Extensions into respective single file under Utilities folder                              |
 | ✅   |                      | #250   | Create Protocols into respective single file under Utilities folder                               |
-| ⬜   | Friday, 04.07.2025   | #251   | Initialize `Game` class and implement `printStatus()`                                             |
+| ✅   | Friday, 04.07.2025   | #251   | Initialize `Game` class and implement `printStatus()`                                             |
 | ⬜   |                      | #251   | Implement round-based system (loop or recursion)                                                  |
 | ⬜   |                      | #251   | Allow hero action selection via console (attack, heal, use item)                                  |
 | ⬜   |                      | #251   | Allow hero to select which enemy to attack                                                        |
-| ⬜   |                      | #252   | Implement `Minion` (or `Scherge`) class                                                           |
+| ✅   |                      | #252   | Implement `Minion` (or `Scherge`) class                                                           |
 | ⬜   |                      | #252   | Add condition: summon minion if Boss HP ≤ 50 %                                                    |
 | ⬜   |                      | #252   | Add minion to `enemies` array only once                                                           |
 | ⬜   |                      | #252   | Update target selection logic: heroes can select any enemy                                        |
@@ -70,7 +70,7 @@
 | ⬜   |                      | #257   | Add item/effect to curse an enemy (lose 15 HP per round)                                          |
 | ⬜   |                      | #257   | Implement `paralyze()` effect to stun an enemy for 1 round                                        |
 | ⬜   |                      | #257   | Implement confusion effect: enemy attacks itself or its minion for 1 round                        |
-| ⬜   |                      | #257   | Introduce elemental system (e.g., Fire > Plant, Water  Plant, etc.)                              |
+| ⬜   |                      | #257   | Introduce elemental system (e.g., Fire > Plant, Water  Plant, etc.)                               |
 | ⬜   |                      | #257   | Implement combination attacks (2+ heroes perform a strong or special move)                        |
 | ⬜   |                      | #257   | Ensure heroes in combination attacks cannot act individually in the same round                    |
 | ⬜   |                      | #258   | Implement a system for random events (e.g. 5% probability)                                        |
@@ -88,6 +88,7 @@
 | ⬜   |                      | ---    | Optional: Add quality-of-life improvements or micro-features                                      |
 
 
+# UML Diagram
 <img src=RPG_UML.png/>
 
 
