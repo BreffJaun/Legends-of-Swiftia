@@ -70,7 +70,7 @@
 | ⬜   |                      | #257   | Add item/effect to curse an enemy (lose 15 HP per round)                                          |
 | ⬜   |                      | #257   | Implement `paralyze()` effect to stun an enemy for 1 round                                        |
 | ⬜   |                      | #257   | Implement confusion effect: enemy attacks itself or its minion for 1 round                        |
-| ⬜   |                      | #257   | Introduce elemental system (e.g., Fire > Plant, Water < Plant, etc.)                              |
+| ⬜   |                      | #257   | Introduce elemental system (e.g., Fire > Plant, Water  Plant, etc.)                              |
 | ⬜   |                      | #257   | Implement combination attacks (2+ heroes perform a strong or special move)                        |
 | ⬜   |                      | #257   | Ensure heroes in combination attacks cannot act individually in the same round                    |
 | ⬜   |                      | #258   | Implement a system for random events (e.g. 5% probability)                                        |
@@ -86,5 +86,9 @@
 | ⬜   |                      | ---    | Visual Polish: Improve console output with better layout, consistent formatting, colors           |
 | ⬜   |                      | ---    | Review previous tickets: Ensure all requirements are fully met                                    |
 | ⬜   |                      | ---    | Optional: Add quality-of-life improvements or micro-features                                      |
+
+
+<img src=/RPG/00_Diverses/ RPG_UML.png/>
+
 
 
