@@ -9,6 +9,7 @@ import Foundation
 
 struct Item: Usable, CustomStringConvertible {
     var name: String
+    var health: Int
     var damage: Int
     var defense: Int
     var usesLeft: Int

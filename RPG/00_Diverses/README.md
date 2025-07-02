@@ -88,6 +88,21 @@
 | ⬜   |                      | ---    | Optional: Add quality-of-life improvements or micro-features                                      |
 
 
+// Todo start()
+// - Start Screen (Game name and so on...) ✅
+// - Init Screen (set which Hero you want to be and how many heroes are there and it will be created an instance after your wishes) ✅
+// - Other Heroes Screen (set how many heroes are there and it will be created an instance after your wishes) ✅
+// - Story Screen (set which type of Story you want to play (easy, middle, hard) ✅
+// - Summary Screen (shows the summary of which was choosed (Hero for yourself. Hero KI and which Story) ✅
+
+
+// ToDo Difficulty funcs
+// -
+
+
+
+
+
 # UML Diagram
 <img src=RPG_UML.png/>
 

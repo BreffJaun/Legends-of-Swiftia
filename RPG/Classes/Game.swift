@@ -23,35 +23,6 @@ class Game {
 //        self.minionsSpawned = minionsSpawned
 //    }
     
-    func start() {
-        clearScreen()
-        roundCounter = 1
-        minionsSpawned = false
-        initGame()
-        switch difficulty {
-        case .easy:
-            return
-        case .medium:
-            return
-        case .hard:
-            return
-        case nil:
-            return
-        }
-    }
-    
-    // Todo start()
-    // - Start Screen (Game name and so on...) ✅
-    // - Init Screen (set which Hero you want to be and how many heroes are there and it will be created an instance after your wishes) ✅
-    // - Other Heroes Screen (set how many heroes are there and it will be created an instance after your wishes) ✅
-    // - Story Screen (set which type of Story you want to play (easy, middle, hard) ✅
-    // - Summary Screen (shows the summary of which was choosed (Hero for yourself. Hero KI and which Story) ✅
-    
-    
-    // ToDo Difficulty funcs
-    // -
-    
-
     func initGame() {
         startScreen()
         chooseHero()
@@ -61,6 +32,73 @@ class Game {
         guard let difficulty = difficulty else { return }
         initSummaryScreen(player: player, companions: heroes, difficulty: difficulty)
     }
+    
+    func start() {
+        clearScreen()
+        roundCounter = 1
+        minionsSpawned = false
+        initGame()
+        let storySteps: [StoryStep]
+        switch difficulty {
+        case .easy:
+          storySteps = easyStorySteps()
+        case .medium:
+          return
+    //      storySteps = normalStorySteps
+        case .hard:
+          return
+    //      storySteps = hardStorySteps
+        case nil:
+            return
+        }
+        
+        for step in storySteps {
+            runRound(step: step)
+        }
+        
+        boxedScreen(title: "Game finished", lines: ["Thanks for playing!"])
+    }
+    
+    
+    func runRound(step: StoryStep) {
+        guard let player = player else { return }
+        clearScreen()
+
+        var choiceTexts = step.choices.enumerated().map { (i, choice) in
+            "(\(i + 1)) ➤ \(choice.description)"
+        }
+        
+        choiceTexts += ["(b) ➤ Open bag"]
+
+        let fullText = step.descriptionLines + [""] + choiceTexts
+
+        boxedScreen(title: step.title, lines: fullText)
+        print("Enter [1], [2], [3], [4] for a choice, or [b] to open your bag: ", terminator: "")
+
+        var selectedIndex: Int?
+        repeat {
+            if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                if input.lowercased() == "b" {
+                    player.bag.menu(currentHero: player)
+//                    print("Enter your choice: ", terminator: "")
+                } else if let number = Int(input), (1...step.choices.count).contains(number) {
+                    selectedIndex = number - 1
+                } else {
+                    print("Invalid input. Please try again: ", terminator: "")
+                    waitASec(sec: 1)
+                }
+            }
+        } while selectedIndex == nil
+
+        let choice = step.choices[selectedIndex!]
+
+        boxedScreen(title: "Konsequenz", lines: [choice.consequence])
+        Thread.sleep(forTimeInterval: 2)
+
+        apply(effect: choice.effect)
+    }
+
+    
     
     func round() {
         boxedScreen(title: "Round \(roundCounter)", lines: ["Round \(roundCounter) is running..."])
@@ -446,6 +484,191 @@ class Game {
         waitASec(sec: 2)
     }
 
-    
+    // MARK: DIFFERENT DIFFICULTY STORIES
+    func easyStorySteps() -> [StoryStep] {
+        return [
+            StoryStep(
+                title: "Step 1: Forest Entrance",
+                descriptionLines: [
+                    "You arrive at the edge of the Emerald Grove.",
+                    "The sun filters through the leaves, birds sing.",
+                    "What do you do?"
+                ],
+                choices: [
+                    Choice(
+                        description: "Look under the rock",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.bag.items.append(Item(name: "Healing Potion", health: 20, damage: 0, defense: 0, usesLeft: 1))
+                            }
+                        },
+                        consequenceText: "You found healing potions under the rock! They are added to all companions' bags."
+                    ),
+                    Choice(
+                        description: "Check behind the bush",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.hp = hero.maxHp
+                            }
+                        },
+                        consequenceText: "A mystical fairy appears and heals all your companions completely!"
+                    ),
+                    Choice(
+                        description: "Follow the screams",
+                        effect: { heroes in
+                            // FIGHT
+                        },
+                        consequenceText: "You encounter 3 hostile minions! Prepare for battle!"
+                    ),
+                    Choice(
+                        description: "Do nothing",
+                        effect: { _ in },
+                        consequenceText: "You wait and observe, the forest remains quiet for now."
+                    )
+                ]
+            ),
+            StoryStep(
+                title: "Step 2: Deeper into the Grove",
+                descriptionLines: [
+                    "The forest thickens and shadows dance between the trees.",
+                    "Your path splits into several directions."
+                ],
+                choices: [
+                    Choice(
+                        description: "Search near the old tree stump",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.bag.items.append(Item(name: "Defendo Elixir", health: 0, damage: 0, defense: 20, usesLeft: 1))
+                            }
+                        },
+                        consequenceText: "You find mana elixirs hidden near the stump and add them to your companions’ bags."
+                    ),
+                    Choice(
+                        description: "Inspect the strange footprints",
+                        effect: { _ in },
+                        consequenceText: "The footprints lead you to a hidden trap, but you manage to avoid it."
+                    ),
+                    Choice(
+                        description: "Call out to the forest spirits",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.hp += 10
+                                if hero.hp > hero.maxHp { hero.hp = hero.maxHp }
+                            }
+                        },
+                        consequenceText: "The spirits bless you and restore some health to all companions."
+                    ),
+                    Choice(
+                        description: "Rest for a moment",
+                        effect: { _ in },
+                        consequenceText: "You take a moment to catch your breath, nothing happens."
+                    )
+                ]
+            ),
+            StoryStep(
+                title: "Step 3: Mystic Pond",
+                descriptionLines: [
+                    "You find a glowing pond with crystal-clear water.",
+                    "It radiates magical energy."
+                ],
+                choices: [
+                    Choice(
+                        description: "Drink from the pond",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.hp = hero.maxHp
+                            }
+                        },
+                        consequenceText: "The water heals all wounds. Everyone is at full strength."
+                    ),
+                    Choice(
+                        description: "Collect water in a vial",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.bag.items.append(Item(name: "Mystic Water", health: 0, damage: 20, defense: 0, usesLeft: 1))
+                            }
+                        },
+                        consequenceText: "You bottle the magical water. It might be useful later."
+                    ),
+                    Choice(
+                        description: "Meditate by the pond",
+                        effect: { _ in },
+                        consequenceText: "You feel calm and focused, but nothing tangible happens."
+                    ),
+                    Choice(
+                        description: "Ignore the pond and move on",
+                        effect: { _ in },
+                        consequenceText: "You decide not to risk it and leave the area."
+                    )
+                ]
+            ),
+            StoryStep(
+                title: "Step 4: Abandoned Camp",
+                descriptionLines: [
+                    "You stumble upon a deserted camp.",
+                    "Ashes are still warm in the firepit."
+                ],
+                choices: [
+                    Choice(
+                        description: "Search the tents",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.bag.items.append(Item(name: "Ration", health: 5, damage: 0, defense: 0, usesLeft: 1))
+                            }
+                        },
+                        consequenceText: "You find some food supplies and distribute them among the group."
+                    ),
+                    Choice(
+                        description: "Examine the tracks",
+                        effect: { _ in },
+                        consequenceText: "The tracks suggest a hasty departure, possibly due to danger."
+                    ),
+                    Choice(
+                        description: "Wait and watch",
+                        effect: { _ in },
+                        consequenceText: "After a while, nothing happens. The camp remains silent."
+                    ),
+                    Choice(
+                        description: "Call out to see if anyone's there",
+                        effect: { _ in },
+                        consequenceText: "Your voice echoes. No response."
+                    )
+                ]
+            ),
+            StoryStep(
+                title: "Step 5: Ancient Stone Circle",
+                descriptionLines: [
+                    "At the forest's heart stands a ring of ancient stones.",
+                    "Mysterious runes glow faintly on them."
+                ],
+                choices: [
+                    Choice(
+                        description: "Touch the central stone",
+                        effect: { heroes in
+                            for hero in heroes {
+                                hero.bag.items.append(Item(name: "Rune of Power", health: 0, damage: 10, defense: 0, usesLeft: 1))
+                            }
+                        },
+                        consequenceText: "You receive a Rune of Power. It pulses with ancient magic."
+                    ),
+                    Choice(
+                        description: "Try to decipher the runes",
+                        effect: { _ in },
+                        consequenceText: "You partially understand the symbols — they speak of trials ahead."
+                    ),
+                    Choice(
+                        description: "Destroy one of the stones",
+                        effect: { _ in },
+                        consequenceText: "A dark cloud swirls briefly, then vanishes. Best not do that again."
+                    ),
+                    Choice(
+                        description: "Sit quietly and listen",
+                        effect: { _ in },
+                        consequenceText: "You hear faint whispers guiding your path. You feel watched."
+                    )
+                ]
+            )
+        ]
+    }
     
 }

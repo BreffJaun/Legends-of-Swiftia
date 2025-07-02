@@ -12,31 +12,45 @@ struct Bag {
     
     mutating func menu(currentHero: Character) {
         guard !items.isEmpty else {
-            print("Your bag is empty!")
+            boxedScreen(title: "{ } - Inventory", lines: ["Your bag is empty."])
+            pressEnterToContinue()
             return
         }
-        
-        print("Items in your bag:")
-        items.enumerated().forEach { (index, item) in
-            print("[\(index + 1)] \(item.description)")
+
+        let itemLines = items.enumerated().map { (index, item) in
+            "[\(index + 1)] \(item.name) – \(item.description) (\(item.usesLeft)x)"
         }
-        
-        print("Choose an item number to use (or press Enter to cancel): ", terminator: "")
-        if let input = readLine(), let choice = Int(input), choice >= 0 && choice < items.count {
-            var item = items[choice - 1]
-            item.use(target: currentHero)
-            
-            if item.isDepleted() {
-                print("\(item.name) is depleted and will be removed.")
-            }
-            
-            items[choice].usesLeft -= 1
-            
-            removeDepletedItems()
-        } else {
+
+        var selectedIndex: Int?
+
+        pagedBox(
+            title: "{¤} - Inventory",
+            lines: itemLines,
+            selectableRange: 1...items.count,
+            onSelect: { number in
+                    selectedIndex = number - 1
+                }
+        )
+
+        // Just happens if no item will be selected
+        guard let index = selectedIndex else {
             print("No item used.")
+            waitASec(sec: 1.5)
+            return
         }
+
+        var item = items[index]
+        item.use(target: currentHero)
+
+        items[index].usesLeft -= 1
+        if items[index].isDepleted() {
+            print("\(item.name) has been used up and will be removed.")
+            Thread.sleep(forTimeInterval: 1.5)
+        }
+
+        removeDepletedItems()
     }
+
     
     mutating func removeDepletedItems() {
         items.removeAll { $0.isDepleted() }
