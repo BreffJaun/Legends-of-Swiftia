@@ -80,7 +80,7 @@ class Game {
             if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
                 if input.lowercased() == "b" {
                     player.bag.menu(currentHero: player)
-//                    print("Enter your choice: ", terminator: "")
+//                    print("Enter your choice: ", terminator: "") => ALREADY IN MENU ?!
                 } else if let number = Int(input), (1...step.choices.count).contains(number) {
                     selectedIndex = number - 1
                 } else {
@@ -92,10 +92,10 @@ class Game {
 
         let choice = step.choices[selectedIndex!]
 
-        boxedScreen(title: "Konsequenz", lines: [choice.consequence])
+        boxedScreen(title: "Consequence", lines: [choice.consequenceText])
         Thread.sleep(forTimeInterval: 2)
 
-        apply(effect: choice.effect)
+        choice.effect(heroes)
     }
 
     
@@ -199,7 +199,7 @@ class Game {
 
         boxedScreen(title: "Start Screen", lines: title)
         pressEnterToContinue()
-        waitASec(sec: 2)
+        waitASec(sec: 1.5)
     }
     
     func chooseHero() {
@@ -230,7 +230,7 @@ class Game {
             if let input = readLine(), let choice = Int(input), (1...3).contains(choice) {
                 selectedHero = availableHeroes[choice - 1]
             } else {
-                print("❌ Invalid input. Please enter 1, 2 or 3.")
+                print("Invalid input. Please enter 1, 2 or 3.")
             }
         }
 
@@ -328,55 +328,58 @@ class Game {
         
         var companionsSelected: [Hero] = []
         
-        for i in 1...numberOfCompanions! {
-            var description = baseCompanionDescription
-            description[0] = companionIntroLines[i - 1] // Zeile 0 ersetzen
-            
-            boxedScreen(
-                title: "Select Companion \(i)",
-                lines: description
-            )
-            
-            print("Choose type for companion \(i) (1 - 3): ", terminator: "")
-            
-            var selectedCompanion: Hero? = nil
-            while selectedCompanion == nil {
-                if let input = readLine(), let choice = Int(input), (1...3).contains(choice) {
-                    switch choice {
-                    case 1:
-                        selectedCompanion = Warrior(
-                            shield: 50,
-                            bag: Bag(),
-                            name: "Warrior Companion \(i)",
-                            hp: 100,
-                            maxHp: 100
-                        )
-                    case 2:
-                        selectedCompanion = Magician(
-                            mana: 50,
-                            bag: Bag(),
-                            name: "Magician Companion \(i)",
-                            hp: 80,
-                            maxHp: 80
-                        )
-                    case 3:
-                        selectedCompanion = Cleric(
-                            holyPower: 50,
-                            bag: Bag(),
-                            name: "Cleric Companion \(i)",
-                            hp: 60,
-                            maxHp: 60
-                        )
-                    default:
-                        break
+        if numberOfCompanions! > 0 {
+            for i in 1...numberOfCompanions! {
+                var description = baseCompanionDescription
+                description[0] = companionIntroLines[i - 1] // Zeile 0 ersetzen
+                
+                boxedScreen(
+                    title: "Select Companion \(i)",
+                    lines: description
+                )
+                
+                print("Choose type for companion \(i) (1 - 3): ", terminator: "")
+                
+                var selectedCompanion: Hero? = nil
+                while selectedCompanion == nil {
+                    if let input = readLine(), let choice = Int(input), (1...3).contains(choice) {
+                        switch choice {
+                        case 1:
+                            selectedCompanion = Warrior(
+                                shield: 50,
+                                bag: Bag(),
+                                name: "Warrior Companion \(i)",
+                                hp: 100,
+                                maxHp: 100
+                            )
+                        case 2:
+                            selectedCompanion = Magician(
+                                mana: 50,
+                                bag: Bag(),
+                                name: "Magician Companion \(i)",
+                                hp: 80,
+                                maxHp: 80
+                            )
+                        case 3:
+                            selectedCompanion = Cleric(
+                                holyPower: 50,
+                                bag: Bag(),
+                                name: "Cleric Companion \(i)",
+                                hp: 60,
+                                maxHp: 60
+                            )
+                        default:
+                            break
+                        }
+                    } else {
+                        print("Invalid input. Please enter 1, 2 or 3: ", terminator: "")
                     }
-                } else {
-                    print("Invalid input. Please enter 1, 2 or 3: ", terminator: "")
                 }
+                companionsSelected.append(selectedCompanion!)
+                print("Companion \(i): \(selectedCompanion!.name) selected.")
             }
-            companionsSelected.append(selectedCompanion!)
-            print("Companion \(i): \(selectedCompanion!.name) selected.")
         }
+        
         
         var summaryLines = ["You have the following companions on your journey:", ""]
         if companionsSelected.isEmpty {
