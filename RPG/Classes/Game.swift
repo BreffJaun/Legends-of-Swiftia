@@ -12,16 +12,16 @@ class Game {
     var player: Hero?
     var heroes: [Hero] = []
     var enemies: [Enemy] = []
-    var roundCounter: Int
+    var roundCounter: Int = 0
     var minionsSpawned: Bool = false
     var difficulty: Difficulty?
     
-    init(heroes: [Hero], enemies: [Enemy], roundCounter: Int, minionsSpawned: Bool) {
-        self.heroes = heroes
-        self.enemies = enemies
-        self.roundCounter = roundCounter
-        self.minionsSpawned = minionsSpawned
-    }
+//    init(heroes: [Hero], enemies: [Enemy], roundCounter: Int, minionsSpawned: Bool) {
+//        self.heroes = heroes
+//        self.enemies = enemies
+//        self.roundCounter = roundCounter
+//        self.minionsSpawned = minionsSpawned
+//    }
     
     func start() {
         clearScreen()

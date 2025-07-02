@@ -50,7 +50,7 @@ class Boss: Enemy {
         }
         
         print("\(name) summoned a minion!")
-        let newMinion = Minion(name: "Minion from \(name)", hp: 30, maxHp: 30)
+        let newMinion = Minion(name: "Minion from \(name)", hp: 30)
         minion = newMinion
         hasSummonedMinion = true
         return newMinion
