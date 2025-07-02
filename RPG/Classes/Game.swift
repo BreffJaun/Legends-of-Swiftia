@@ -149,14 +149,15 @@ class Game {
             "",
             "",
             "",
+            "       ╔══════════════════════════════════════════════╗",
+            "       ║              LEGENDS OF SWIFTIA              ║",
+            "       ╚══════════════════════════════════════════════╝",
             "",
-            "💥 LEGENDS OF SWIFTIA 💥",
             "",
-            "",
-            "",
-            "",
-            "👉 PRESS ENTER TO START THE GAME 👈"
+            "                   > PRESS ENTER TO BEGIN <",
+            ""
         ]
+
 
         boxedScreen(title: "Start Screen", lines: title)
         pressEnterToContinue()
@@ -173,9 +174,9 @@ class Game {
         let heroDescriptions = [
             "Tell us who you are...",
             "",
-            "(1) 🛡️ Warrior - High life, balanced damage",
-            "(2) 🔮 Magician - Fragile, powerful spells",
-            "(3) ✨ Healer - Supports all, low attack"
+            "(1) [#] Warrior - Lots of health, moderate damage",
+            "(2) <*> Magician - Low health, high damage",
+            "(3) [+] Healer - Supports the team, low damage"
         ]
 
         boxedScreen(
@@ -251,7 +252,7 @@ class Game {
             if let input = readLine(), let num = Int(input), (0...2).contains(num) {
                 numberOfCompanions = num
             } else {
-                print("❌ Invalid input. Please enter 0, 1 or 2: ", terminator: "")
+                print("Invalid input. Please enter 0, 1 or 2: ", terminator: "")
             }
         }
         
@@ -277,9 +278,9 @@ class Game {
         let baseCompanionDescription = [
             "",
             "",
-            "(1) 🛡️ Warrior - Lots of health, moderate damage",
-            "(2) 🔮 Magician - Low health, high damage",
-            "(3) ✨ Healer - Supports the team, low damage"
+            "(1) [#] Warrior - Lots of health, moderate damage",
+            "(2) <*> Magician - Low health, high damage",
+            "(3) [+] Healer - Supports the team, low damage"
         ]
 
         let companionIntroLines = [
@@ -332,14 +333,14 @@ class Game {
                         break
                     }
                 } else {
-                    print("❌ Invalid input. Please enter 1, 2 or 3: ", terminator: "")
+                    print("Invalid input. Please enter 1, 2 or 3: ", terminator: "")
                 }
             }
             companionsSelected.append(selectedCompanion!)
             print("Companion \(i): \(selectedCompanion!.name) selected.")
         }
         
-        var summaryLines = ["You have the following companions on your journey:"]
+        var summaryLines = ["You have the following companions on your journey:", ""]
         if companionsSelected.isEmpty {
             summaryLines.append("No companions selected.")
         } else {
@@ -355,9 +356,9 @@ class Game {
     
     func setDifficultyLevel() -> Difficulty {
         let difficultyDescriptions = [
-            "(1) 🌿 Emerald Grove - A bright and welcoming forest. (Easy)",
-            "(2) 🌫️ Twilight Thicket - Shadows linger here. (Medium)",
-            "(3) 🌑 Whispering Abyss - Only the brave dare enter. (Hard)"
+            "(1) {~} Emerald Grove     - A bright and welcoming forest. (Easy)",
+            "(2) {^} Twilight Thicket  - Shadows linger here.           (Medium)",
+            "(3) [O] Whispering Abyss  - Only the brave dare enter.     (Hard)"
         ]
         
         boxedScreen(
@@ -375,9 +376,11 @@ class Game {
                 switch choice {
                 case 1:
                     boxedScreen(
-                        title: "🌿 Emerald Grove",
+                        title: "{~} Emerald Grove",
                         lines: [
-                            "The trees sway gently in the wind, their leaves glowing with morning dew.",
+                            "The trees sway gently in the wind, their leaves glowing ",
+                            "with morning dew.",
+                            "",
                             "A place of hope — but danger may still lurk in the shadows..."
                         ]
                     )
@@ -386,9 +389,10 @@ class Game {
                     return .easy
                 case 2:
                     boxedScreen(
-                        title: "🌫️ Twilight Thicket",
+                        title: "{^} Twilight Thicket",
                         lines: [
                             "A faint fog lies between the gnarled roots and crooked trunks.",
+                            "",
                             "Every step echoes as if watched by unseen eyes..."
                         ]
                     )
@@ -397,9 +401,10 @@ class Game {
                     return .medium
                 case 3:
                     boxedScreen(
-                        title: "🌑 Whispering Abyss",
+                        title: "[O] Whispering Abyss",
                         lines: [
                             "The forest here is silent — too silent. No birds. No wind.",
+                            "",
                             "You hear whispers that vanish when you try to listen."
                         ]
                     )
@@ -410,7 +415,7 @@ class Game {
                     break
                 }
             }
-            print("❌ Invalid input. Please enter 1, 2 or 3: ", terminator: "")
+            print("Invalid input. Please enter 1, 2 or 3: ", terminator: "")
         }
     }
 
@@ -419,14 +424,14 @@ class Game {
         
         // Spieler Info
         lines += ["", "You are the: `\(player.name)`", ""]
-
+        let actualCompanions = companions.filter { $0 !== player }
         
         // Begleiter Info
-        if companions.isEmpty {
+        if actualCompanions.isEmpty {
             lines += ["", "You have no companions."]
         } else {
             lines += ["", "Your companions: ", ""]
-            for companion in companions {
+            for companion in actualCompanions {
                 lines.append("- \(companion.name)")
             }
         }
@@ -435,7 +440,8 @@ class Game {
         // Schwierigkeit
         lines.append("Difficulty level: \(difficulty)")
         
-        boxedScreen(title: "Game Summary", lines: lines)
+        boxedScreen(title: "Game Summary",
+                    lines: lines)
         pressEnterToContinue()
         waitASec(sec: 2)
     }

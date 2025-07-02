@@ -99,7 +99,7 @@ func pagedBox(title: String,
 }
 
 func pressEnterToContinue() {
-    print("Press Enter to continue...", terminator: "")
+    print("Press Enter to continue... ", terminator: "")
     _ = readLine()
 }
 

@@ -46,8 +46,8 @@
 
 | ✅   | Day & Date           | Ticket | Task                                                                                              |
 |------|----------------------|--------|---------------------------------------------------------------------------------------------------|
-| ⬜   | Monday, 07.07.2025   | #254   | Create method to display all relevant hero info                                                   |
-| ⬜   |                      | #254   | Show HP, status (e.g. poisoned, paralyzed), XP and level                                          |
+| ✅   | Monday, 07.07.2025   | #254   | Create method to display all relevant hero info                                                   |
+| ✅   |                      | #254   | Show HP, status (e.g. poisoned, paralyzed), XP and level                                          |
 | ⬜   |                      | #254   | Implement progress indicator for XP (e.g. e.g. XP: 120/250)                                       |
 | ⬜   |                      | #254   | Optional: Highlight special statuses in color or with symbols                                     |
 | ⬜   |                      | #254   | Integrate display into existing `printStatus()` method of the Game class                          |
