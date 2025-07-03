@@ -9,9 +9,9 @@ import Foundation
 
 
 struct Choice {
-    let description: String
+    let description: [String]
     let effect: ([Hero]) -> Void
-    let consequenceText: String
+    let consequenceText: [String]
 }
 
 

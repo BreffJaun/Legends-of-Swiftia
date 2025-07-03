@@ -14,11 +14,11 @@ struct Bag {
         guard !items.isEmpty else {
             boxedScreen(title: "{ } - Inventory", lines: ["Your bag is empty."])
             pressEnterToContinue()
-            return
+            return 
         }
 
         let itemLines = items.enumerated().map { (index, item) in
-            "[\(index + 1)] \(item.name) – \(item.description) (\(item.usesLeft)x)"
+            "(\(index + 1)) ➤ \(item.name) – \(item.description) (\(item.usesLeft)x)"
         }
 
         var selectedIndex: Int?
@@ -45,7 +45,7 @@ struct Bag {
         items[index].usesLeft -= 1
         if items[index].isDepleted() {
             print("\(item.name) has been used up and will be removed.")
-            Thread.sleep(forTimeInterval: 1.5)
+            waitASec(sec: 1.5)
         }
 
         removeDepletedItems()
@@ -56,3 +56,10 @@ struct Bag {
         items.removeAll { $0.isDepleted() }
     }
 }
+
+
+
+
+
+
+

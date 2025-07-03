@@ -44,7 +44,7 @@ func boxedScreen(title: String, lines: [String]) {
         let padded = line.padding(toLength: width - 2, withPad: " ", startingAt: 0)
         print("║" + padded + "║")
     }
-
+    
     print(bottomBorder)
 }
 
@@ -63,8 +63,8 @@ func pagedBox(title: String,
         let start = page * pageSize
         let end = min(start + pageSize, lines.count)
         var visibleLines = Array(lines[start..<end])
-        visibleLines.insert("", at: 0)
-        visibleLines.append("")
+//        visibleLines.insert("", at: 0)
+//        visibleLines.append("")
 
         boxedScreen(title: title, lines: visibleLines)
 
@@ -91,6 +91,7 @@ func pagedBox(title: String,
                   let range = selectableRange,
                   range.contains(number) {
             onSelect?(number)
+            break
         } else {
             print("Invalid input. Please try again.")
             Thread.sleep(forTimeInterval: 1)

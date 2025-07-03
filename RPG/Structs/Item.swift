@@ -40,7 +40,7 @@ struct Item: Usable, CustomStringConvertible {
         usesLeft -= 1
         
         if damage == 0 && defense == 0 {
-            print("\(name) DOES NOTHING ! ! ! HAVE A LOOK INTO THE INSTANCE")
+            print("\(name) has no effect...")
         }
     }
     
