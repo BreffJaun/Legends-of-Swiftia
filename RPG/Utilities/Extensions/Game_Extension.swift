@@ -346,7 +346,7 @@ extension Game {
                     "Choose action:",
                     "",
                     "(1) ➤ Attack",
-                    "\(player is Warrior ? "(2) ➤ Power Strike" : player is Magician ? "(2) ➤ Cast Fireball" : "(2) ➤ Mass Heal")",
+                    "\(hero is Warrior ? "(2) ➤ Power Strike" : hero is Magician ? "(2) ➤ Cast Fireball" : "(2) ➤ Mass Heal")",
                     "",
                     "(b) ➤ Open bag",
                     "(q) ➤ Quit game"
@@ -363,12 +363,13 @@ extension Game {
                         return
                     } else if input == "1" {
                         let livingEnemies = enemies.enumerated().filter { $0.element.isAlive() }
-                        let enemyLines = livingEnemies.map { "(\($0.offset)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
+                        let enemyLines = livingEnemies.map { "(\($0.offset + 1)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
                         boxedScreen(title: "Choose Enemy", lines: enemyLines)
                         print("Enter [number] for choose enemy, (q) ➤ Quit game: ", terminator: "")
                         
-                        if let input = readLine(), let index = Int(input),
-                           index >= 0 && index < livingEnemies.count {
+                        if let input = readLine(), let inputNumber = Int(input),
+                           inputNumber >= 1 && inputNumber <= livingEnemies.count {
+                            let index = inputNumber - 1
                             let target = livingEnemies[index].element
                             hero.attack(target: target)
                             pressEnterToContinue()
@@ -387,12 +388,13 @@ extension Game {
                         let livingHeroesWithIndex = heroes.enumerated().filter { $0.element.isAlive() }
                         let livingHeroes = livingHeroesWithIndex.map { $0.element }
                         
-                        let enemyLines = livingEnemiesWithIndex.map { "(\($0.offset)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
+                        let enemyLines = livingEnemiesWithIndex.map { "(\($0.offset + 1)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
                         boxedScreen(title: "Choose Enemy", lines: enemyLines)
                         print("Enter [number] for choose enemy, (q) ➤ Quit game: ", terminator: "")
                         
-                        if let input = readLine(), let index = Int(input),
-                           index >= 0 && index < livingEnemies.count {
+                        if let input = readLine(), let inputNumber = Int(input),
+                           inputNumber >= 1 && inputNumber <= livingEnemies.count {
+                            let index = inputNumber - 1
                             let target = livingEnemiesWithIndex[index].element
                             switch hero {
                             case let warrior as Warrior:

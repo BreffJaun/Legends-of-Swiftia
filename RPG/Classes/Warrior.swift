@@ -22,8 +22,8 @@ class Warrior: Hero {
     }
     
     func powerStrike(target: Character) {
-        let strikeDamage = 20
-       print("\(name) performs a power strike against \(target.name) and causes \(strikeDamage) damage!")
+       let strikeDamage = 20
+       print("\(name) performs a power strike against \(target.name)!")
        target.takeDamage(amount: strikeDamage)
     }
     
