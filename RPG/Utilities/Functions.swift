@@ -63,8 +63,8 @@ func pagedBox(title: String,
         let start = page * pageSize
         let end = min(start + pageSize, lines.count)
         var visibleLines = Array(lines[start..<end])
-//        visibleLines.insert("", at: 0)
-//        visibleLines.append("")
+        visibleLines.insert("", at: 0)
+        visibleLines.append("")
 
         boxedScreen(title: title, lines: visibleLines)
 

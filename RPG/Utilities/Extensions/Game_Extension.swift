@@ -47,7 +47,7 @@ extension Game {
                     Choice(
                         description: ["Follow the screams"],
                         effect: { heroes in
-                            // FIGHT
+                            self.fight(heroes: heroes, minions: 3)
                         },
                         consequenceText: [
                             "You encounter 3 hostile minions! Prepare for",
@@ -314,13 +314,13 @@ extension Game {
     
     func fight(heroes: [Hero], minions: Int, includeBoss: Bool = false)  {
         let player = heroes[0]
-        var companions = heroes.dropFirst().filter { $0.isAlive() }
+        let companions = heroes.dropFirst().filter { $0.isAlive() }
         
-        var enemies: [Enemy] = []
+//        var enemies: [Enemy] = []
         //        let randomInt = Int.random(in: 1...5)companions
         // Vielleicht über einen Randomizer lösen? Später noch mal schauen
         for i in 1...minions {
-            enemies.append(Minion(name: "Minion \(i)", hp: 20))
+            enemies.append(Minion(name: "Minion \(i)", hp: 30))
         }
         
         if includeBoss {
@@ -328,127 +328,141 @@ extension Game {
         }
         
         boxedScreen(title: "Battle Start", lines: [
-            "You \(!companions.isEmpty ? "and your companions " : "" )are facing \(enemies.count) enemies!",
+            "\(!companions.isEmpty ? "You and your companions " : "You " )are facing \(enemies.count) enemies!",
             "Prepare for battle!"
         ])
         pressEnterToContinue()
         
-        func getStatusLines(heroes: [Hero], enemies: [Enemy]) -> [String] {
-            var lines: [String] = []
-            lines.append("== Your Party ==")
-            for hero in heroes {
-                lines.append("\(hero.name): \(hero.hp)/\(hero.maxHp) HP")
-            }
-            lines.append("")
-            lines.append("== Enemies ==")
-            for enemy in enemies {
-                lines.append("\(enemy.name): \(enemy.hp)/\(enemy.maxHp) HP")
-            }
-            return lines
-        }
-        
         while heroes.contains(where: { $0.isAlive() }) &&
                 enemies.contains(where: { $0.isAlive() }) {
             
-            // Displayd status before player turn
-            boxedScreen(title: "Before Player Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
+            boxedScreen(title: "Battle Stand", lines: getStatusLines(heroes: heroes, enemies: enemies))
             pressEnterToContinue()
+            waitASec(sec: 1)
             
-            boxedScreen(title: "Your Turn, \(player.name)", lines: [
-                "Choose action:",
-                "",
-                "(1) ➤ Attack",
-                "\(player is Warrior ? "(2) ➤ Power Strike" : player is Magician ? "(2) ➤ Cast Fireball" : "(2) ➤ Mass Heal")",
-                "",
-                "(b) ➤ Open bag",
-                "(q) ➤ Quit game"
-            ])
-            print("Enter [1] for attack, [2] for special attack, (b) Open bag, (q) ➤ Quit game: ", terminator: "")
-            
-            if let choice = readLine() {
-                if choice == "1" {
-                    let livingEnemies = enemies.enumerated().filter { $0.element.isAlive() }
-                    let enemyLines = livingEnemies.map { "[\($0.offset)] \($0.element.name) (HP: \($0.element.hp))" }
-                    
-                    boxedScreen(title: "Choose Enemy", lines: enemyLines)
-                    if let input = readLine(), let index = Int(input),
-                       index >= 0 && index < livingEnemies.count {
-                        let target = livingEnemies[index].element
-                        player.attack(target: target)
-                        pressEnterToContinue()
+            // MARK: HERO ACTIONS
+            for hero in heroes {
+                boxedScreen(title: "Your Turn, \(hero.name)", lines: [
+                    "Choose action:",
+                    "",
+                    "(1) ➤ Attack",
+                    "\(player is Warrior ? "(2) ➤ Power Strike" : player is Magician ? "(2) ➤ Cast Fireball" : "(2) ➤ Mass Heal")",
+                    "",
+                    "(b) ➤ Open bag",
+                    "(q) ➤ Quit game"
+                ])
+                print("Enter [1] for attack, [2] for special attack, (b) ➤ Open bag, (q) ➤ Quit game: ", terminator: "")
+                
+                if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                    if input.lowercased() == "b" {
+                        player.bag.menu(currentHero: player)
+                        continue
+                    } else if input.lowercased() == "q" {
+                        print("You decided to quit the game. Goodbye! ", terminator: "")
+                        waitASec(sec: 1.5)
+                        return
+                    } else if input == "1" {
+                        let livingEnemies = enemies.enumerated().filter { $0.element.isAlive() }
+                        let enemyLines = livingEnemies.map { "(\($0.offset)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
+                        boxedScreen(title: "Choose Enemy", lines: enemyLines)
+                        print("Enter [number] for choose enemy, (q) ➤ Quit game: ", terminator: "")
+                        
+                        if let input = readLine(), let index = Int(input),
+                           index >= 0 && index < livingEnemies.count {
+                            let target = livingEnemies[index].element
+                            hero.attack(target: target)
+                            pressEnterToContinue()
+                        } else if input.lowercased() == "q" {
+                            print("You decided to quit the game. Goodbye! ", terminator: "")
+                            waitASec(sec: 1.5)
+                            return
+                        } else {
+                            print("Invalid input. Please try again: ", terminator: "")
+                            waitASec(sec: 1)
+                        }
+                    } else if input == "2" {
+                        let livingEnemiesWithIndex = enemies.enumerated().filter { $0.element.isAlive() }
+                        let livingEnemies = livingEnemiesWithIndex.map { $0.element }
+
+                        let livingHeroesWithIndex = heroes.enumerated().filter { $0.element.isAlive() }
+                        let livingHeroes = livingHeroesWithIndex.map { $0.element }
+                        
+                        let enemyLines = livingEnemiesWithIndex.map { "(\($0.offset)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
+                        boxedScreen(title: "Choose Enemy", lines: enemyLines)
+                        print("Enter [number] for choose enemy, (q) ➤ Quit game: ", terminator: "")
+                        
+                        if let input = readLine(), let index = Int(input),
+                           index >= 0 && index < livingEnemies.count {
+                            let target = livingEnemiesWithIndex[index].element
+                            switch hero {
+                            case let warrior as Warrior:
+                                warrior.powerStrike(target: target)
+                            case let magician as Magician:
+                                magician.castFireball(enemies: livingEnemies)
+                            case let cleric as Cleric:
+                                cleric.massHeal(heroes: livingHeroes)
+                            default:
+                                break
+                            }
+                       
+                            player.attack(target: target)
+                            pressEnterToContinue()
+                        } else if input.lowercased() == "q" {
+                            print("You decided to quit the game. Goodbye! ", terminator: "")
+                            waitASec(sec: 1.5)
+                            return
+                        } else {
+                            print("Invalid input. Please try again: ", terminator: "")
+                            waitASec(sec: 1)
+                        }
+                    } else {
+                        print("Invalid input. Please try again: ", terminator: "")
+                        waitASec(sec: 1)
                     }
-                } else if choice == "2" {
-                    player.bag.menu(currentHero: player)
-                    //                    pressEnterToContinue()
                 }
-                
-                
-                //                if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                //                    if input.lowercased() == "b" {
-                //                        player.bag.menu(currentHero: player)
-                //    //                    print("Enter your choice: ", terminator: "") => ALREADY IN MENU ?!
-                //                    } else if input.lowercased() == "q" {
-                //                        print("You decided to quit the game. Goodbye! ", terminator: "")
-                //                        waitASec(sec: 1.5)
-                //                        return false
-                //                    } else if let number = Int(input), (1...step.choices.count).contains(number) {
-                //                        selectedIndex = number - 1
-                //                    } else {
-                //                        print("Invalid input. Please try again: ", terminator: "")
-                //                        waitASec(sec: 1)
-                //                    }
             }
             
-            boxedScreen(title: "After Player Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
+            
+            boxedScreen(title: "After Allies Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
             pressEnterToContinue()
+            waitASec(sec: 1)
+            
+            // MARK: ENEMY ACTIONS
+            for enemy in enemies where enemy.isAlive() {
+                if let target = heroes.first(where: { $0.isAlive() }) {
+                    boxedScreen(title: "\(enemy.name)'s Turn", lines: [
+                        "\(enemy.name) attacks \(target.name)!"
+                    ])
+                    enemy.attack(target: target)
+                    pressEnterToContinue()
+                }
+            }
             
             
-            //            for companion in companions where companions.isAlive() {
-            //                if let target = enemies.first(where: { $0.isAlive() }) {
-            //                    boxedScreen(title: "\(ally.name)'s Turn", lines: [
-            //                        "\(ally.name) attacks \(target.name)!"
-            //                    ])
-            //                    companions.attack(target: target)
-            //                    pressEnterToContinue()
-            //                }
-            //            }
-            //
-            //
-            //            boxedScreen(title: "After Allies Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
-            //            pressEnterToContinue()
-            //
-            //
-            //            for enemy in enemies where enemy.isAlive() {
-            //                if let target = heroes.first(where: { $0.isAlive() }) {
-            //                    boxedScreen(title: "\(enemy.name)'s Turn", lines: [
-            //                        "\(enemy.name) attacks \(target.name)!"
-            //                    ])
-            //                    enemy.attack(target: target)
-            //                    pressEnterToContinue()
-            //                }
-            //            }
-            //
-            //
-            //            boxedScreen(title: "After Enemy Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
-            //            pressEnterToContinue()
-            //
-            //
-            //            allies = heroes.dropFirst().filter { $0.isAlive() }
-            //        }
-            //
-            //
-            //        if heroes.contains(where: { $0.isAlive() }) {
-            //            boxedScreen(title: "Victory!", lines: [
-            //                "You have defeated all enemies."
-            //            ])
-            //            return true
-            //        } else {
-            //            boxedScreen(title: "Defeat!", lines: [
-            //                "Your party has fallen in battle."
-            //            ])
-            //            return false
-            //        }
+            boxedScreen(title: "After Enemy Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
+            pressEnterToContinue()
         }
-        
+        if heroes.contains(where: { $0.isAlive() }) {
+            // Helden leben noch → Sieg
+            boxedScreen(title: "Victory!", lines: ["You have defeated all enemies."])
+            return
+        } else {
+            boxedScreen(title: "Defeat!", lines: ["Your party has fallen in battle."])
+            exit(0)
+        }
+    }
+    
+    func getStatusLines(heroes: [Hero], enemies: [Enemy]) -> [String] {
+        var lines: [String] = []
+        lines.append("== Your Party ==")
+        for hero in heroes {
+            lines.append("\(hero.name): \(hero.hp)/\(hero.maxHp) HP")
+        }
+        lines.append("")
+        lines.append("== Enemies ==")
+        for enemy in enemies {
+            lines.append("\(enemy.name): \(enemy.hp)/\(enemy.maxHp) HP")
+        }
+        return lines
     }
 }

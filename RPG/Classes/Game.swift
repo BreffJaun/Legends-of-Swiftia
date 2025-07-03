@@ -92,7 +92,6 @@ class Game {
                 if input.lowercased() == "b" {
                     player.bag.menu(currentHero: player)
                     continue
-//                    print("Enter your choice: ", terminator: "") => ALREADY IN MENU ?!
                 } else if input.lowercased() == "q" {
                     print("You decided to quit the game. Goodbye! ", terminator: "")
                     waitASec(sec: 1.5)
