@@ -14,7 +14,7 @@ class Enemy: Character {
             name: name,
             hp: hp,
             maxHp: maxHp,
-            damage: 8
+            damage: 15
         )
     }
 }

@@ -10,7 +10,8 @@ import Foundation
 
 struct Choice {
     let description: [String]
-    let effect: ([Hero]) -> Void
+//    let effect: ([Hero]) -> Void
+    let effect: () -> Bool
     let consequenceText: [String]
 }
 

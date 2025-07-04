@@ -10,6 +10,7 @@ import Foundation
 
 class Cleric: Hero {
     var holyPower: Int
+    var maxHolPower: Int = 25
     
     init(holyPower: Int, bag: Bag, name: String, hp: Int, maxHp: Int) {
         self.holyPower = holyPower

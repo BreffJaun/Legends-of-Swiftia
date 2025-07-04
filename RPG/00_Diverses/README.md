@@ -27,13 +27,13 @@
 | ✅   |                      | #249   | Create Extensions into respective single file under Utilities folder                              |
 | ✅   |                      | #250   | Create Protocols into respective single file under Utilities folder                               |
 | ✅   | Friday, 04.07.2025   | #251   | Initialize `Game` class and implement `printStatus()`                                             |
-| ⬜   |                      | #251   | Implement round-based system (loop or recursion)                                                  |
-| ⬜   |                      | #251   | Allow hero action selection via console (attack, heal, use item)                                  |
-| ⬜   |                      | #251   | Allow hero to select which enemy to attack                                                        |
+| ✅   |                      | #251   | Implement round-based system (loop or recursion)                                                  |
+| ✅   |                      | #251   | Allow hero action selection via console (attack, heal, use item)                                  |
+| ✅   |                      | #251   | Allow hero to select which enemy to attack                                                        |
 | ✅   |                      | #252   | Implement `Minion` (or `Scherge`) class                                                           |
-| ⬜   |                      | #252   | Add condition: summon minion if Boss HP ≤ 50 %                                                    |
-| ⬜   |                      | #252   | Add minion to `enemies` array only once                                                           |
-| ⬜   |                      | #252   | Update target selection logic: heroes can select any enemy                                        |
+| ✅   |                      | #252   | Add condition: summon minion if Boss HP ≤ 50 %                                                    |
+| ✅   |                      | #252   | Add minion to `enemies` array only once                                                           |
+| ✅   |                      | #252   | Update target selection logic: heroes can select any enemy                                        |
 | ⬜   |                      | #252   | Optional: boss becomes untargetable until minion is defeated                                      |
 | ⬜   |                      | #253   | Add `xp` and `level` properties to `Hero` class                                                   |
 | ⬜   |                      | #253   | Define XP thresholds for Level 1–3                                                                |
@@ -96,8 +96,6 @@
 // - Summary Screen (shows the summary of which was choosed (Hero for yourself. Hero KI and which Story) ✅
 
 
-// ToDo Difficulty funcs
-// -
 
 
 

@@ -10,6 +10,7 @@ import Foundation
 
 class Magician: Hero {
     var mana: Int
+    var maxMana: Int = 25
     
     init(mana: Int, bag: Bag, name: String, hp: Int, maxHp: Int) {
         self.mana = mana

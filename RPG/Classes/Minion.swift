@@ -20,7 +20,7 @@ class Minion: Enemy {
     func minionSpecialAttack(target: Character) {
         guard target.isAlive() else { return }
         let specialDamage = 12
-        print("\(name) performs a special attack on \(target.name) and causes \(specialDamage) damage!")
+        print("\(name) performs a special attack on \(target.name)!")
         target.takeDamage(amount: specialDamage)
     }
 }

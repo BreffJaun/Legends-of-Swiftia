@@ -103,6 +103,10 @@ class Game {
                     waitASec(sec: 1)
                 }
             }
+            
+            for hero in heroes {
+                hero.processStatusEffects()
+            }
         } while selectedIndex == nil
 
         let choice = step.choices[selectedIndex!]
@@ -110,8 +114,13 @@ class Game {
         boxedScreen(title: "Consequence", lines: choice.consequenceText)
         waitASec(sec: 3)
 
-        choice.effect(heroes)
-        return true
+//        choice.effect(heroes)
+        if choice.effect() {
+            return true
+        } else {
+            return false
+        }
+//        return true
     }
 
     
@@ -295,9 +304,9 @@ class Game {
     
     func chooseHero() {
         let availableHeroes = [
-            Warrior(shield: 50, bag: Bag(), name: "Warrior", hp: 100, maxHp: 100),
-            Magician(mana: 50, bag: Bag(), name: "Magician", hp: 80, maxHp: 80),
-            Cleric(holyPower: 50, bag: Bag(), name: "Cleric", hp: 60, maxHp: 60)
+            Warrior(shield: 10, bag: Bag(), name: "Warrior", hp: 100, maxHp: 100),
+            Magician(mana: 25, bag: Bag(), name: "Magician", hp: 80, maxHp: 80),
+            Cleric(holyPower: 25, bag: Bag(), name: "Cleric", hp: 60, maxHp: 60)
         ]
 
         let heroDescriptions = [

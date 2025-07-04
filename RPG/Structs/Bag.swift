@@ -7,7 +7,17 @@
 
 import Foundation
 
-struct Bag {
+struct Bag: CustomStringConvertible {
+    var description: String {
+        if items.isEmpty {
+            return "Bag is empty."
+        } else {
+            return items.enumerated().map { (index, item) in
+                "(\(index + 1)) \(item.name) (\(item.usesLeft)x)"
+            }.joined(separator: "\n")
+        }
+    }
+    
     var items: [Item] = []
     
     mutating func menu(currentHero: Character) {
@@ -18,7 +28,8 @@ struct Bag {
         }
 
         let itemLines = items.enumerated().map { (index, item) in
-            "(\(index + 1)) ➤ \(item.name) – \(item.description) (\(item.usesLeft)x)"
+//            "(\(index + 1)) ➤ \(item.name) – \(item.description) (\(item.usesLeft)x)"
+            "(\(index + 1)) ➤ \(item.name) (\(item.usesLeft)x)"
         }
 
         var selectedIndex: Int?

@@ -10,251 +10,596 @@ import Foundation
 
 // MARK: DIFFERENT DIFFICULTY STORIES
 extension Game {
+//    func easyStorySteps() -> [StoryStep] {
+//        return [
+//            StoryStep(
+//                title: "Step 1: Forest Entrance",
+//                descriptionLines: [
+//                    "You arrive at the edge of the Emerald Grove.",
+//                    "The sun filters through the leaves, birds sing.",
+//                    "What do you do?"
+//                ],
+//                choices: [
+//                    Choice(
+//                        description: ["Look under the rock"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.bag.items.append(Item(name: "Healing Potion", health: 20, damage: 0, defense: 0, usesLeft: 1))
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "You found healing potions under the rock! They are",
+//                            "added to all companions' bags."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Check behind the bush"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.hp = hero.maxHp
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "A mystical fairy appears and heals all your",
+//                            "companions completely!"
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Follow the screams"],
+//                        effect:{
+//                            let result = self.fight(heroes: self.heroes, minions: 3)
+//                            return result
+//                        },
+//                            
+//                        consequenceText: [
+//                            "You encounter 3 hostile minions! Prepare for",
+//                            "battle!"
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Do nothing"],
+//                        effect: { return true },
+//                        consequenceText: [
+//                            "You wait and observe, the forest remains quiet",
+//                            "for now."
+//                        ]
+//                    )
+//                    
+//                ]
+//            ),
+//            StoryStep(
+//                title: "Step 2: Deeper into the Grove",
+//                descriptionLines: [
+//                    "The forest thickens and shadows dance between the trees.",
+//                    "Your path splits into several directions."
+//                ],
+//                choices: [
+//                    Choice(
+//                        description: ["Search near the old tree stump"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.bag.items.append(Item(name: "Defendo Elixir", health: 0, damage: 0, defense: 20, usesLeft: 1))
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "You find mana elixirs hidden near the stump and",
+//                            "add them to your companions’ bags."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Inspect the strange footprints"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "The footprints lead you to a hidden trap, but you",
+//                            "manage to avoid it."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Call out to the forest spirits"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.hp += 10
+//                                if hero.hp > hero.maxHp { hero.hp = hero.maxHp }
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "The spirits bless you and restore some health to",
+//                            "all companions."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Rest for a moment"],
+//                        effect: {  return true},
+//                        consequenceText: [
+//                            "You take a moment to catch your breath, nothing",
+//                            "happens."
+//                        ]
+//                    )
+//                ]
+//            ),
+//            StoryStep(
+//                title: "Step 3: Mystic Pond",
+//                descriptionLines: [
+//                    "You find a glowing pond with crystal-clear water.",
+//                    "It radiates magical energy."
+//                ],
+//                choices: [
+//                    Choice(
+//                        description: ["Drink from the pond"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.hp = hero.maxHp
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "The water heals all wounds. Everyone is at full",
+//                            "strength."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Collect water in a vial"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.bag.items.append(Item(name: "Mystic Water", health: 0, damage: 20, defense: 0, usesLeft: 1))
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "You bottle the magical water. It might be useful",
+//                            "later."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Meditate by the pond"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "You feel calm and focused, but nothing tangible",
+//                            "happens."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Ignore the pond and move on"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "You decide not to risk it and leave the area."
+//                        ]
+//                    )
+//                ]
+//            ),
+//            StoryStep(
+//                title: "Step 4: Abandoned Camp",
+//                descriptionLines: [
+//                    "You stumble upon a deserted camp.",
+//                    "Ashes are still warm in the firepit."
+//                ],
+//                choices: [
+//                    Choice(
+//                        description: ["Search the tents"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.bag.items.append(Item(name: "Ration", health: 5, damage: 0, defense: 0, usesLeft: 1))
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "You find some food supplies and distribute them",
+//                            "among the group."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Examine the tracks"],
+//                        effect: {  return true},
+//                        consequenceText: [
+//                            "The tracks suggest a hasty departure, possibly",
+//                            "due to danger."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Wait and watch"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "After a while, nothing happens. The camp remains",
+//                            "silent."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Call out to see if anyone's there"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "Your voice echoes. No response."
+//                        ]
+//                    )
+//                ]
+//            ),
+//            StoryStep(
+//                title: "Step 5: Ancient Stone Circle",
+//                descriptionLines: [
+//                    "At the forest's heart stands a ring of ancient stones.",
+//                    "Mysterious runes glow faintly on them."
+//                ],
+//                choices: [
+//                    Choice(
+//                        description: ["Touch the central stone"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.bag.items.append(Item(name: "Rune of Power", health: 0, damage: 10, defense: 0, usesLeft: 1))
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "You receive a Rune of Power. It pulses with",
+//                            "ancient magic."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Try to decipher the runes"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "You partially understand the symbols — they speak",
+//                            "of trials ahead."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Destroy one of the stones"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "A dark cloud swirls briefly, then vanishes.",
+//                            "Best not do that again."
+//                        ]
+//                    ),
+//                    Choice(
+//                        description: ["Sit quietly and listen"],
+//                        effect: { return true},
+//                        consequenceText: [
+//                            "You hear faint whispers guiding your path.",
+//                            "You feel watched."
+//                        ]
+//                    )
+//                    
+//                ]
+//            )
+//        ]
+//    }
+    
     func easyStorySteps() -> [StoryStep] {
         return [
+
+            // STEP 1
             StoryStep(
-                title: "Step 1: Forest Entrance",
+                title: "Step 1: Forest Edge",
                 descriptionLines: [
-                    "You arrive at the edge of the Emerald Grove.",
-                    "The sun filters through the leaves, birds sing.",
-                    "What do you do?"
+                    "You stand at the entrance of the Whispering Woods.",
+                    "Birdsong fades as thick vines line the path ahead.",
+                    "Something unnatural clings to the air."
                 ],
                 choices: [
+                    // FIGHT
                     Choice(
-                        description: ["Look under the rock"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.bag.items.append(Item(name: "Healing Potion", health: 20, damage: 0, defense: 0, usesLeft: 1))
+                        description: ["Approach the rustling bushes"],
+                        effect: {
+                            return self.fight(heroes: self.heroes, minions: 2)
+                        },
+                        consequenceText: [
+                            "As you step closer, two twisted rootlings leap out!",
+                            "Their wooden claws slash through the air—fight!"
+                        ]
+                    ),
+                    // ITEM
+                    Choice(
+                        description: ["Search the old satchel hanging on a tree"],
+                        effect: {
+                            for hero in self.heroes {
+                                hero.bag.items.append(Item(name: "Cracked Acorn", health: 5, damage: 0, defense: 2, usesLeft: 1))
                             }
+                            return true
                         },
                         consequenceText: [
-                            "You found healing potions under the rock! They are",
-                            "added to all companions' bags."
+                            "Inside are dried rations and a few cracked acorns.",
+                            "Each companion takes one and pockets it cautiously."
                         ]
                     ),
+                    // STATUS
                     Choice(
-                        description: ["Check behind the bush"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.hp = hero.maxHp
+                        description: ["Smell the glowing fungus nearby"],
+                        effect: {
+                            for hero in self.heroes {
+                                let poison = StatusEffect(type: .poison, duration: 3)
+                                hero.applyStatus(status: poison)
                             }
+                            return true
                         },
                         consequenceText: [
-                            "A mystical fairy appears and heals all your",
-                            "companions completely!"
+                            "The sweet scent turns bitter in your lungs.",
+                            "A sickly feeling creeps in — you've been poisoned."
                         ]
                     ),
+                    // HARMLESS
                     Choice(
-                        description: ["Follow the screams"],
-                        effect: { heroes in
-                            self.fight(heroes: heroes, minions: 3)
-                        },
+                        description: ["Sit on the mossy rock to rest a moment"],
+                        effect: { return true },
                         consequenceText: [
-                            "You encounter 3 hostile minions! Prepare for",
-                            "battle!"
-                        ]
-                    ),
-                    Choice(
-                        description: ["Do nothing"],
-                        effect: { _ in },
-                        consequenceText: [
-                            "You wait and observe, the forest remains quiet",
-                            "for now."
-                        ]
-                    )
-                    
-                ]
-            ),
-            StoryStep(
-                title: "Step 2: Deeper into the Grove",
-                descriptionLines: [
-                    "The forest thickens and shadows dance between the trees.",
-                    "Your path splits into several directions."
-                ],
-                choices: [
-                    Choice(
-                        description: ["Search near the old tree stump"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.bag.items.append(Item(name: "Defendo Elixir", health: 0, damage: 0, defense: 20, usesLeft: 1))
-                            }
-                        },
-                        consequenceText: [
-                            "You find mana elixirs hidden near the stump and",
-                            "add them to your companions’ bags."
-                        ]
-                    ),
-                    Choice(
-                        description: ["Inspect the strange footprints"],
-                        effect: { _ in },
-                        consequenceText: [
-                            "The footprints lead you to a hidden trap, but you",
-                            "manage to avoid it."
-                        ]
-                    ),
-                    Choice(
-                        description: ["Call out to the forest spirits"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.hp += 10
-                                if hero.hp > hero.maxHp { hero.hp = hero.maxHp }
-                            }
-                        },
-                        consequenceText: [
-                            "The spirits bless you and restore some health to",
-                            "all companions."
-                        ]
-                    ),
-                    Choice(
-                        description: ["Rest for a moment"],
-                        effect: { _ in },
-                        consequenceText: [
-                            "You take a moment to catch your breath, nothing",
-                            "happens."
+                            "You sit in silence, the forest watching.",
+                            "Nothing stirs—perhaps a moment of peace."
                         ]
                     )
                 ]
             ),
+
+            // STEP 2
             StoryStep(
-                title: "Step 3: Mystic Pond",
+                title: "Step 2: Overgrown Path",
                 descriptionLines: [
-                    "You find a glowing pond with crystal-clear water.",
-                    "It radiates magical energy."
+                    "The trail narrows beneath entangled branches.",
+                    "A strange hum rises with each step you take.",
+                    "It’s like the forest itself is breathing."
                 ],
                 choices: [
+                    // HARMLOS
                     Choice(
-                        description: ["Drink from the pond"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.hp = hero.maxHp
+                        description: ["Carefully follow the footprints ahead"],
+                        effect: { return true },
+                        consequenceText: [
+                            "The path remains clear—for now.",
+                            "You press onward, undisturbed."
+                        ]
+                    ),
+                    // ITEM
+                    Choice(
+                        description: ["Examine the bones beneath the ivy"],
+                        effect: {
+                            if let hero = self.heroes.randomElement() {
+                                hero.bag.items.append(Item(name: "Ancient Talisman", health: 0, damage: 0, defense: 5, usesLeft: 1))
                             }
+                            return true
                         },
                         consequenceText: [
-                            "The water heals all wounds. Everyone is at full",
-                            "strength."
+                            "Among the remains you find a glowing talisman.",
+                            "One companion claims it for protection."
                         ]
                     ),
+                    // STATUS
                     Choice(
-                        description: ["Collect water in a vial"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.bag.items.append(Item(name: "Mystic Water", health: 0, damage: 20, defense: 0, usesLeft: 1))
+                        description: ["Whisper back at the forest hum"],
+                        effect: {
+                            if let hero = self.heroes.randomElement() {
+                                let curse = StatusEffect(type: .curse, duration: 3)
+                                hero.applyStatus(status: curse)
                             }
+                            return true
                         },
                         consequenceText: [
-                            "You bottle the magical water. It might be useful",
-                            "later."
+                            "The forest answers in a voice not your own.",
+                            "A chill grips your ally’s soul—they are cursed."
                         ]
                     ),
+                    // FIGHT
                     Choice(
-                        description: ["Meditate by the pond"],
-                        effect: { _ in },
+                        description: ["Clear the thick vines blocking your way"],
+                        effect: {
+                            return self.fight(heroes: self.heroes, minions: 3)
+                        },
                         consequenceText: [
-                            "You feel calm and focused, but nothing tangible",
-                            "happens."
-                        ]
-                    ),
-                    Choice(
-                        description: ["Ignore the pond and move on"],
-                        effect: { _ in },
-                        consequenceText: [
-                            "You decide not to risk it and leave the area."
+                            "As you cut through, thornlings burst from the thicket!",
+                            "They snarl in rage—battle is upon you."
                         ]
                     )
                 ]
             ),
+
+            // STEP 3
             StoryStep(
-                title: "Step 4: Abandoned Camp",
+                title: "Step 3: Whispering Clearing",
                 descriptionLines: [
-                    "You stumble upon a deserted camp.",
-                    "Ashes are still warm in the firepit."
+                    "You enter a misty glade where the air is unnaturally cold.",
+                    "Voices seem to echo, though no one speaks."
                 ],
                 choices: [
+                    // ITEM
                     Choice(
-                        description: ["Search the tents"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.bag.items.append(Item(name: "Ration", health: 5, damage: 0, defense: 0, usesLeft: 1))
+                        description: ["Inspect the altar covered in vines"],
+                        effect: {
+                            for hero in self.heroes {
+                                hero.bag.items.append(Item(name: "Wisp Essence", health: 0, damage: 15, defense: 0, usesLeft: 1))
                             }
+                            return true
                         },
                         consequenceText: [
-                            "You find some food supplies and distribute them",
-                            "among the group."
+                            "You carefully collect glowing wisp essence.",
+                            "Its power hums faintly in your pack."
                         ]
                     ),
+                    // HARMLOS
                     Choice(
-                        description: ["Examine the tracks"],
-                        effect: { _ in },
+                        description: ["Sit in silence and listen"],
+                        effect: { return true },
                         consequenceText: [
-                            "The tracks suggest a hasty departure, possibly",
-                            "due to danger."
+                            "The forest sighs around you.",
+                            "Nothing stirs but the wind."
                         ]
                     ),
+                    // FIGHT
                     Choice(
-                        description: ["Wait and watch"],
-                        effect: { _ in },
+                        description: ["Call out to the voices"],
+                        effect: {
+                            return self.fight(heroes: self.heroes, minions: 2)
+                        },
                         consequenceText: [
-                            "After a while, nothing happens. The camp remains",
-                            "silent."
+                            "Phantom shades emerge, cloaked in fog!",
+                            "You draw your weapons instinctively."
                         ]
                     ),
+                    // STATUS
                     Choice(
-                        description: ["Call out to see if anyone's there"],
-                        effect: { _ in },
+                        description: ["Touch the pool of still water"],
+                        effect: {
+                            for hero in self.heroes {
+                                let freeze = StatusEffect(type: .curse, duration: 2)
+                                hero.applyStatus(status: freeze)
+                            }
+                            return true
+                        },
                         consequenceText: [
-                            "Your voice echoes. No response."
+                            "Your limbs go numb as the water flashes cold.",
+                            "You're frozen in dread—temporarily immobilized."
                         ]
                     )
                 ]
             ),
+
+            // STEP 4
             StoryStep(
-                title: "Step 5: Ancient Stone Circle",
+                title: "Step 4: Twisted Roots",
                 descriptionLines: [
-                    "At the forest's heart stands a ring of ancient stones.",
-                    "Mysterious runes glow faintly on them."
+                    "The ground is cracked and roots pulse with unnatural energy.",
+                    "Darkness coils in the soil beneath your boots."
                 ],
                 choices: [
+                    // STATUS
                     Choice(
-                        description: ["Touch the central stone"],
-                        effect: { heroes in
-                            for hero in heroes {
-                                hero.bag.items.append(Item(name: "Rune of Power", health: 0, damage: 10, defense: 0, usesLeft: 1))
+                        description: ["Place your hand on a pulsing root"],
+                        effect: {
+                            for hero in self.heroes {
+                                let paralyze = StatusEffect(type: .paralyze, duration: 3)
+                                hero.applyStatus(status: paralyze)
                             }
+                            return true
                         },
                         consequenceText: [
-                            "You receive a Rune of Power. It pulses with",
-                            "ancient magic."
+                            "A surge of energy locks your muscles in place.",
+                            "Your bodies resist movement—you are paralyzed."
                         ]
                     ),
+                    // ITEM
                     Choice(
-                        description: ["Try to decipher the runes"],
-                        effect: { _ in },
+                        description: ["Examine the glowing cocoon in the roots"],
+                        effect: {
+                            if let hero = self.heroes.randomElement() {
+                                hero.bag.items.append(Item(name: "Spider Silk Wrap", health: 10, damage: 0, defense: 3, usesLeft: 1))
+                            }
+                            return true
+                        },
                         consequenceText: [
-                            "You partially understand the symbols — they speak",
-                            "of trials ahead."
+                            "Inside lies a glistening wrap of magical silk.",
+                            "It might provide comfort—or entrapment."
                         ]
                     ),
+                    // FIGHT
                     Choice(
-                        description: ["Destroy one of the stones"],
-                        effect: { _ in },
+                        description: ["Tread near the cracked earth"],
+                        effect: {
+                            return self.fight(heroes: self.heroes, minions: 4)
+                        },
                         consequenceText: [
-                            "A dark cloud swirls briefly, then vanishes.",
-                            "Best not do that again."
+                            "Burrowers erupt from the cracks, howling hungrily!",
+                            "They are fast—you must react quickly!"
                         ]
                     ),
+                    // HARMLOS
                     Choice(
-                        description: ["Sit quietly and listen"],
-                        effect: { _ in },
+                        description: ["Step carefully around the roots"],
+                        effect: { return true },
                         consequenceText: [
-                            "You hear faint whispers guiding your path.",
-                            "You feel watched."
+                            "You avoid the shifting tendrils and move forward unharmed.",
+                            "Best not to disturb what lies below."
                         ]
                     )
-                    
                 ]
-            )
+            ),
+
+            // STEP 5
+            StoryStep(
+                title: "Step 5: Forgotten Shrine",
+                descriptionLines: [
+                    "An ancient shrine looms in a clearing.",
+                    "Strange symbols glow faintly along its stones.",
+                    "You feel watched, yet welcomed."
+                ],
+                choices: [
+                    // HARMLOS
+                    Choice(
+                        description: ["Sit peacefully among the shrine stones"],
+                        effect: { return true },
+                        consequenceText: [
+                            "Time passes slowly, quietly.",
+                            "You feel spiritually centered, untouched by harm."
+                        ]
+                    ),
+                    // STATUS
+                    Choice(
+                        description: ["Trace the runes with your fingers"],
+                        effect: {
+                            if let hero = self.heroes.randomElement() {
+                                let burn = StatusEffect(type: .burn, duration: 3)
+                                hero.applyStatus(status: burn)
+                            }
+                            return true
+                        },
+                        consequenceText: [
+                            "The runes flare, burning your skin.",
+                            "One hero bears the mark—cursed with burning pain."
+                        ]
+                    ),
+                    // ITEM
+                    Choice(
+                        description: ["Offer a prayer at the shrine"],
+                        effect: {
+                            for hero in self.heroes {
+                                hero.bag.items.append(Item(name: "Blessed Stone", health: 0, damage: 0, defense: 7, usesLeft: 1))
+                            }
+                            return true
+                        },
+                        consequenceText: [
+                            "Warmth fills your hearts as a gift appears at your feet.",
+                            "You receive sacred stones imbued with ancient protection."
+                        ]
+                    ),
+                    // FIGHT
+                    Choice(
+                        description: ["Inspect the idol at the shrine's center"],
+                        effect: {
+                            return self.fight(heroes: self.heroes, minions: 3)
+                        },
+                        consequenceText: [
+                            "The idol awakens! Stone guardians emerge from the earth.",
+                            "Your challenge has been accepted."
+                        ]
+                    )
+                ]
+            ),
+            
+//            StoryStep(
+//                title: "Final Step: The Office of Doom",
+//                descriptionLines: [
+//                    "You enter a dimly lit office filled with stacks of ungraded papers.",
+//                    "At the head of the cluttered desk sits Justulor, Warden of Exams.",
+//                    "He glares at you with a mix of tiredness and deadly seriousness.",
+//                    "Prepare yourself for the ultimate challenge!"
+//                ],
+//                choices: [
+//                    Choice(
+//                        description: ["Face Justulor, Warden of Exams, Boss of Eternal Deadlines"],
+//                        effect: {
+//                            // Hier übergibst du Justus als besonderen Boss
+//                            return self.fightBoss(heroes: self.heroes, bossName: "Justulor, Warden of Exams")
+//                        },
+//                        consequenceText: [
+//                            "\"Did you finish the homework?\" Justus growls.",
+//                            "You feel the weight of countless missed deadlines pressing down.",
+//                            "But victory means passing the course... or at least surviving the lecture!"
+//                        ]
+//                    )
+//                ]
+//            )
+
         ]
     }
+
+    
     
     func normalStorySteps() -> [StoryStep] {
         return [
@@ -268,10 +613,11 @@ extension Game {
                 choices: [
                     Choice(
                         description: ["Look under the rock"],
-                        effect: { heroes in
-                            for hero in heroes {
+                        effect: {
+                            for hero in self.heroes {
                                 hero.bag.items.append(Item(name: "Healing Potion", health: 20, damage: 0, defense: 0, usesLeft: 1))
                             }
+                            return true
                         },
                         consequenceText: [
                             "You found healing potions under the rock! They are",
@@ -296,10 +642,11 @@ extension Game {
                 choices: [
                     Choice(
                         description: ["Look under the rock"],
-                        effect: { heroes in
-                            for hero in heroes {
+                        effect: {
+                            for hero in self.heroes {
                                 hero.bag.items.append(Item(name: "Healing Potion", health: 20, damage: 0, defense: 0, usesLeft: 1))
                             }
+                            return true
                         },
                         consequenceText: [
                             "You found healing potions under the rock! They are",
@@ -312,7 +659,7 @@ extension Game {
     }
     
     
-    func fight(heroes: [Hero], minions: Int, includeBoss: Bool = false)  {
+    func fight(heroes: [Hero], minions: Int, includeBoss: Bool = false) -> Bool {
         let player = heroes[0]
         let companions = heroes.dropFirst().filter { $0.isAlive() }
         
@@ -333,15 +680,25 @@ extension Game {
         ])
         pressEnterToContinue()
         
+        var hasShownBattleStand = false
         while heroes.contains(where: { $0.isAlive() }) &&
                 enemies.contains(where: { $0.isAlive() }) {
             
-            boxedScreen(title: "Battle Stand", lines: getStatusLines(heroes: heroes, enemies: enemies))
-            pressEnterToContinue()
-            waitASec(sec: 1)
+            
+            if !hasShownBattleStand {
+                boxedScreen(title: "Battle Stand", lines: getStatusLines(heroes: heroes, enemies: enemies))
+                pressEnterToContinue()
+                waitASec(sec: 1)
+                hasShownBattleStand = true
+            }
             
             // MARK: HERO ACTIONS
             for hero in heroes {
+                // Check if there are still enemies, so the other heroes don`t need to make thier round to fight against "nothing"
+                if getLivingEnemies().isEmpty {
+                    break
+                }
+                
                 boxedScreen(title: "Your Turn, \(hero.name)", lines: [
                     "Choose action:",
                     "",
@@ -351,7 +708,7 @@ extension Game {
                     "(b) ➤ Open bag",
                     "(q) ➤ Quit game"
                 ])
-                print("Enter [1] for attack, [2] for special attack, (b) ➤ Open bag, (q) ➤ Quit game: ", terminator: "")
+                print("Enter [1] ➤ attack, [2] ➤ special attack, (b) ➤ Open bag, (q) ➤ Quit game: ", terminator: "")
                 
                 if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
                     if input.lowercased() == "b" {
@@ -360,7 +717,7 @@ extension Game {
                     } else if input.lowercased() == "q" {
                         print("You decided to quit the game. Goodbye! ", terminator: "")
                         waitASec(sec: 1.5)
-                        return
+                        return false
                     } else if input == "1" {
                         let livingEnemies = enemies.enumerated().filter { $0.element.isAlive() }
                         let enemyLines = livingEnemies.map { "(\($0.offset + 1)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
@@ -376,95 +733,122 @@ extension Game {
                         } else if input.lowercased() == "q" {
                             print("You decided to quit the game. Goodbye! ", terminator: "")
                             waitASec(sec: 1.5)
-                            return
+                            return false
                         } else {
                             print("Invalid input. Please try again: ", terminator: "")
                             waitASec(sec: 1)
                         }
                     } else if input == "2" {
+                        // Setting enemies with index (for visual presentation) and without for the code syntax
                         let livingEnemiesWithIndex = enemies.enumerated().filter { $0.element.isAlive() }
-                        let livingEnemies = livingEnemiesWithIndex.map { $0.element }
+                        let livingEnemies = enemies.filter { $0.isAlive() }
 
-                        let livingHeroesWithIndex = heroes.enumerated().filter { $0.element.isAlive() }
-                        let livingHeroes = livingHeroesWithIndex.map { $0.element }
+                        // Setting heroes without index because we didn´t need to show them for selection
+                        let livingHeroes = heroes.filter { $0.isAlive() }
                         
-                        let enemyLines = livingEnemiesWithIndex.map { "(\($0.offset + 1)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
-                        boxedScreen(title: "Choose Enemy", lines: enemyLines)
-                        print("Enter [number] for choose enemy, (q) ➤ Quit game: ", terminator: "")
-                        
-                        if let input = readLine(), let inputNumber = Int(input),
-                           inputNumber >= 1 && inputNumber <= livingEnemies.count {
-                            let index = inputNumber - 1
-                            let target = livingEnemiesWithIndex[index].element
-                            switch hero {
-                            case let warrior as Warrior:
+                        switch hero {
+                        case let warrior as Warrior:
+                            let enemyLines = livingEnemiesWithIndex.map { "(\($0.offset + 1)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
+                            boxedScreen(title: "Choose Enemy", lines: enemyLines)
+                            print("Enter [number] for choose enemy, (q) ➤ Quit game: ", terminator: "")
+                            if let input = readLine(), let inputNumber = Int(input),
+                               inputNumber >= 1 && inputNumber <= livingEnemies.count {
+                                let index = inputNumber - 1
+                                let target = livingEnemiesWithIndex[index].element
                                 warrior.powerStrike(target: target)
-                            case let magician as Magician:
-                                magician.castFireball(enemies: livingEnemies)
-                            case let cleric as Cleric:
-                                cleric.massHeal(heroes: livingHeroes)
-                            default:
-                                break
+                            }  else if input.lowercased() == "q" {
+                                print("You decided to quit the game. Goodbye! ", terminator: "")
+                                waitASec(sec: 1.5)
+                                return false
+                            } else {
+                                print("Invalid input. Please try again: ", terminator: "")
+                                waitASec(sec: 1)
                             }
-                       
-                            player.attack(target: target)
                             pressEnterToContinue()
-                        } else if input.lowercased() == "q" {
-                            print("You decided to quit the game. Goodbye! ", terminator: "")
-                            waitASec(sec: 1.5)
-                            return
-                        } else {
-                            print("Invalid input. Please try again: ", terminator: "")
-                            waitASec(sec: 1)
+    //                      return true
+                        case let magician as Magician:
+                            magician.castFireball(enemies: livingEnemies)
+                            pressEnterToContinue()
+                        case let cleric as Cleric:
+                            cleric.massHeal(heroes: livingHeroes)
+                            pressEnterToContinue()
+                        default:
+                            break
                         }
                     } else {
                         print("Invalid input. Please try again: ", terminator: "")
                         waitASec(sec: 1)
                     }
                 }
-            }
-            
-            
-            boxedScreen(title: "After Allies Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
-            pressEnterToContinue()
-            waitASec(sec: 1)
-            
-            // MARK: ENEMY ACTIONS
-            for enemy in enemies where enemy.isAlive() {
-                if let target = heroes.first(where: { $0.isAlive() }) {
-                    boxedScreen(title: "\(enemy.name)'s Turn", lines: [
-                        "\(enemy.name) attacks \(target.name)!"
-                    ])
-                    enemy.attack(target: target)
-                    pressEnterToContinue()
+                for hero in heroes {
+                    hero.processStatusEffects()
                 }
+                self.heroes = getLivingHeroes()
+                self.enemies = getLivingEnemies()
             }
             
+            if !enemies.isEmpty {
+                boxedScreen(title: "After Allies Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
+                pressEnterToContinue()
+                waitASec(sec: 1)
+                
+                // MARK: ENEMY ACTIONS
+                for enemy in enemies {
+                    if let target = heroes.randomElement() {
+                        boxedScreen(title: "\(enemy.name)'s Turn", lines: [
+                            "\(enemy.name) attacks \(target.name)!"
+                        ])
+                        enemy.attack(target: target)
+                        pressEnterToContinue()
+                    }
+                    self.heroes = getLivingHeroes()
+                    self.enemies = getLivingEnemies()
+                }
+                
+                if !heroes.isEmpty {
+                    boxedScreen(title: "After Enemy Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
+                    pressEnterToContinue()
+                } else {
+                    continue
+                }
+            } else {
+                continue
+            }
             
-            boxedScreen(title: "After Enemy Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
-            pressEnterToContinue()
         }
         if heroes.contains(where: { $0.isAlive() }) {
-            // Helden leben noch → Sieg
             boxedScreen(title: "Victory!", lines: ["You have defeated all enemies."])
-            return
+            return true // prüfen ob er dann nicht ganz aus dem Spiel geht!
         } else {
             boxedScreen(title: "Defeat!", lines: ["Your party has fallen in battle."])
             exit(0)
+//            return false
         }
     }
     
     func getStatusLines(heroes: [Hero], enemies: [Enemy]) -> [String] {
         var lines: [String] = []
-        lines.append("== Your Party ==")
+        lines += ["-=== Your  Party ===-", ""]
         for hero in heroes {
             lines.append("\(hero.name): \(hero.hp)/\(hero.maxHp) HP")
         }
-        lines.append("")
-        lines.append("== Enemies ==")
+        lines += ["", "---------------------", "", "-===   Enemies   ===-", ""]
         for enemy in enemies {
             lines.append("\(enemy.name): \(enemy.hp)/\(enemy.maxHp) HP")
         }
         return lines
     }
+    
+    func getLivingEnemies() -> [Enemy] {
+        return enemies.filter { $0.isAlive() }
+    }
+    
+    func getLivingHeroes() -> [Hero] {
+        return heroes.filter { $0.isAlive() }
+    }
+    
+    func randomStatusEffect() -> StatusEffectType {
+        let statusEffects: [StatusEffectType] = [.poison, .paralyze, .burn, .freeze, .curse]
+        return statusEffects.randomElement()!
+   }
 }
