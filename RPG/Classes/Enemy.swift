@@ -17,6 +17,8 @@ class Enemy: Character {
             damage: 15
         )
     }
+    
+    func normalRecharge() {}
 }
 
 

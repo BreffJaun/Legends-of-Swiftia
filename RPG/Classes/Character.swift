@@ -51,16 +51,25 @@ class Character: CustomStringConvertible {
     }
     
     func attack(target: Character) {
-        guard isAlive() else {
-            print("\(name) is defeated and cannot attack.")
+        guard canAct() else {
+            print("\(name) is \(statusEffects.first { $0.type == .freeze || $0.type == .paralyze }!.type.rawValue) and cannot act this turn!")
             return
         }
-        
+    
         let variation = Int.random(in: -2...2)
         let totalDamage = max(0, damage + variation)
         
-        print("\(name) attacks \(target.name) for \(totalDamage) damage.")
-        target.takeDamage(amount: totalDamage)
+        if isAttackSuccessful() {
+            if let warrior = target as? Warrior, warrior.shield > totalDamage {
+                print("The warrior's shield has blocked the attack!")
+                return
+            }
+
+            print("\(name) attacks \(target.name) for \(totalDamage) damage.")
+            target.takeDamage(amount: totalDamage)
+        } else {
+            print("\(name)´s attack missed!")
+        }
     }
     
     func applyStatus(status: StatusEffect) {
@@ -79,6 +88,10 @@ class Character: CustomStringConvertible {
             status.tick()
         }
         statusEffects.removeAll { $0.duration <= 0 }
+    }
+    
+    func canAct() -> Bool {
+        return !statusEffects.contains { $0.type == .freeze || $0.type == .paralyze }
     }
 }
 

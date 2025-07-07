@@ -108,4 +108,8 @@ func waitASec(sec: Double) {
     Thread.sleep(forTimeInterval: sec)
 }
 
+func isAttackSuccessful() -> Bool {
+    return Int.random(in: 1...3) != 3
+}
+
 

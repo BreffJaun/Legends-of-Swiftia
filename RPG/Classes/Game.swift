@@ -85,8 +85,7 @@ class Game {
             
             boxedScreen(title: step.title, lines: fullText)
             print("Enter [1], [2], [3], [4] for a choice, [b] Open bag, (q) ➤ Quit game: ", terminator: "")
-
-        
+                    
         
             if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
                 if input.lowercased() == "b" {
@@ -103,10 +102,17 @@ class Game {
                     waitASec(sec: 1)
                 }
             }
-            
             for hero in heroes {
                 hero.processStatusEffects()
+                waitASec(sec: 0.75)
             }
+            let anyHasStatusEffects = heroes.contains { !$0.statusEffects.isEmpty }
+
+            if anyHasStatusEffects {
+                pressEnterToContinue()
+            }
+
+            
         } while selectedIndex == nil
 
         let choice = step.choices[selectedIndex!]
@@ -114,13 +120,11 @@ class Game {
         boxedScreen(title: "Consequence", lines: choice.consequenceText)
         waitASec(sec: 3)
 
-//        choice.effect(heroes)
         if choice.effect() {
             return true
         } else {
             return false
         }
-//        return true
     }
 
     
@@ -304,7 +308,7 @@ class Game {
     
     func chooseHero() {
         let availableHeroes = [
-            Warrior(shield: 10, bag: Bag(), name: "Warrior", hp: 100, maxHp: 100),
+            Warrior(shield: 15, bag: Bag(), name: "Warrior", hp: 100, maxHp: 100),
             Magician(mana: 25, bag: Bag(), name: "Magician", hp: 80, maxHp: 80),
             Cleric(holyPower: 25, bag: Bag(), name: "Cleric", hp: 60, maxHp: 60)
         ]
@@ -446,7 +450,7 @@ class Game {
                         switch choice {
                         case 1:
                             selectedCompanion = Warrior(
-                                shield: 50,
+                                shield: 15,
                                 bag: Bag(),
                                 name: "Warrior Companion \(i)",
                                 hp: 100,
@@ -454,7 +458,7 @@ class Game {
                             )
                         case 2:
                             selectedCompanion = Magician(
-                                mana: 50,
+                                mana: 25,
                                 bag: Bag(),
                                 name: "Magician Companion \(i)",
                                 hp: 80,
@@ -462,7 +466,7 @@ class Game {
                             )
                         case 3:
                             selectedCompanion = Cleric(
-                                holyPower: 50,
+                                holyPower: 25,
                                 bag: Bag(),
                                 name: "Cleric Companion \(i)",
                                 hp: 60,

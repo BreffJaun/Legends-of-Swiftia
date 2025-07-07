@@ -24,17 +24,18 @@ class StatusEffect: CustomStringConvertible {
     func applyTo(c: Character) {
         switch type {
         case .poison:
+            print("\(c.name) suffers poison damage!")
             c.takeDamage(amount: 5)
-            print("\(c.name) suffers 5 poison damage!")
         case .burn:
+            print("\(c.name) is burning and takes damage!")
             c.takeDamage(amount: 3)
-            print("\(c.name) is burning and takes 3 damage!")
         case .curse:
+            print("\(c.name) is cursed and takes damage!")
             c.takeDamage(amount: 4)
-            print("\(c.name) is cursed and takes 4 damage!")
-        case .freeze, .paralyze:
-            // Zum Beispiel: Lähmung oder Einfrieren könnte Bewegung blockieren, aber keinen Schaden machen
-            print("\(c.name) is affected by \(type.rawValue)!")
+        case .freeze:
+            print("\(c.name) is frozen and must skip a turn!")
+        case .paralyze:
+            print("\(c.name) is paralyzed and must skip a turn!")
         }
     }
     

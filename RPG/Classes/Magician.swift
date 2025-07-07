@@ -31,12 +31,31 @@ class Magician: Hero {
             return
         }
         
-        mana -= manaCost
-        print("\(name) throws a fireball and deals \(fireballDamage) damage to all enemies!")
         
-        enemies.filter { $0.isAlive() }
-               .forEach { $0.takeDamage(amount: fireballDamage) }
-
+        if isAttackSuccessful() {
+            print("\(name) throws a fireball and deals \(fireballDamage) damage to all enemies!")
+            enemies.forEach { $0.takeDamage(amount: fireballDamage) }
+            mana -= manaCost
+        } else {
+            mana -= manaCost
+            print("\(name)´s attack missed!")
+        }
+    }
+    
+    func isImmuneTo(type: StatusEffectType) -> Bool {
+        return type == .curse
+    }
+    
+    override func skipToRecharge() {
+        mana += 10
+        print("\(name) sits out a round to gather his magical strength!")
+    }
+    
+    override func normalRecharge() {
+        mana += 2
+        if mana > maxMana {
+            mana = maxMana
+        }
     }
 }
 

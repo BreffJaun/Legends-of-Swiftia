@@ -8,10 +8,14 @@
 import Foundation
 
 class Boss: Enemy {
-    private var hasSummonedMinion = false
+    var endurance: Int = 30
+    var maxEndurance: Int = 30
+    var mana: Int = 30
+    var maxMana: Int = 30
+    private var hasSummonedMinions = false
     private var hasUsedUltimate = false
     var curseDuration: Int = 3
-    var minion: Minion?
+//    var minion: [Minion]?
     
     init(curseDuration: Int, name: String, hp: Int, maxHp: Int) {
         self.curseDuration = curseDuration
@@ -23,37 +27,44 @@ class Boss: Enemy {
     }
     
     override func attack(target: Character) {
-        guard target.isAlive() else { return }
+//        guard target.isAlive() else { return }
         print("\(name) performs a powerful single attack against \(target.name)!") // maybe a print too much?
         super.attack(target: target)
     }
     
     func areaAttack(heroes: [Hero]) {
         let areaDamage = 20
-        print("\(name) unleashes an area attack and hits all heroes with \(areaDamage) damage!")
-        heroes.filter { $0.isAlive() }
-              .forEach {
-                  print("\($0.name) gets \(areaDamage) damage.")
+        let enduranceCost = 10
+        
+//        guard endurance >= enduranceCost else {
+//            print("\(name) doesn't have enough endurance for an area attack!")
+//            return
+//        }
+        print("\(name) unleashes an area attack and hits all heroes with massive damage!")
+        heroes.forEach {
+//                  print("\($0.name) gets \(areaDamage) damage.")
                   $0.takeDamage(amount: areaDamage)
               }
+        endurance -= enduranceCost
     }
     
-    func summonMinion() -> Minion? {
-        guard !hasSummonedMinion else {
-            print("\(name) has already summoned a minion!")
+    func summonMinions() -> [Minion]? {
+        guard !hasSummonedMinions else {
+//            print("\(name) has already summoned a minion!")
             return nil
         }
         
         guard hp <= maxHp / 2 else {
-            print("\(name) is not weak enough to summon a minion yet!")
+//            print("\(name) is not weak enough to summon a minion yet!")
             return nil
         }
         
         print("\(name) summoned a minion!")
-        let newMinion = Minion(name: "Minion from \(name)", hp: 30)
-        minion = newMinion
-        hasSummonedMinion = true
-        return newMinion
+        let protMinion1 = Minion(name: "Protector Minion 1 from \(name)", hp: 30)
+        let protMinion2 = Minion(name: "Protector Minion 2 from \(name)", hp: 30)
+        let protectorMinions = [protMinion1, protMinion2]
+        hasSummonedMinions = true
+        return protectorMinions
     }
     
     func bossSpecialAttack(heroes: [Hero]) {
@@ -63,17 +74,79 @@ class Boss: Enemy {
         }
         print("\(name) unleashes its ultimate attack!")
         let ultDamage = 25
-        heroes.filter { $0.isAlive() }
-               .forEach { $0.takeDamage(amount: ultDamage) }
+        heroes.forEach { $0.takeDamage(amount: ultDamage) }
         hasUsedUltimate = true
     }
     
     func curse(target: Character) {
+        let manaCost = 10
         let curseDuration = 3
         print("\(name) curses \(target.name) for \(curseDuration) rounds!")
         let curseEffect = StatusEffect(type: .curse, duration: curseDuration)
         target.applyStatus(status: curseEffect)
+        mana -= manaCost
     }
     
+    func randomAttack(target: Character, heroes: [Hero]) {
+        if !hasSummonedMinions && hp <= maxHp / 2 {
+            _ = summonMinions()
+            return
+        }
+        
+        var availableActions: [() -> Void] = []
+
+        availableActions.append {
+            self.attack(target: target)
+            self.normalRecharge()
+        }
+
+        if endurance >= 10 {
+            availableActions.append {
+                self.areaAttack(heroes: heroes)
+            }
+        }
+
+        if !hasUsedUltimate {
+            availableActions.append {
+                self.bossSpecialAttack(heroes: heroes)
+            }
+        }
+
+        if mana >= 10 {
+            availableActions.append {
+                self.curse(target: target)
+            }
+        }
+
+        if availableActions.isEmpty {
+            print("\(name) is resting to regain endurance...")
+            targetedRecharge()
+            return
+        }
+        
+        if isAttackSuccessful() {
+            let chosenAction = availableActions.randomElement()!
+            chosenAction()
+        } else {
+            print("\(name)´s attack missed!")
+        }
+    }
+
+    
+    override func normalRecharge() {
+        endurance += 5
+        mana += 5
+        if endurance > maxEndurance {
+            endurance = maxEndurance
+        }
+        if mana > maxMana {
+            mana = maxMana
+        }
+    }
+    
+    func targetedRecharge() {
+        endurance += 10
+        mana += 10
+    }
 
 }

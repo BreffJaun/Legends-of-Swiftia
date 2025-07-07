@@ -10,7 +10,7 @@ import Foundation
 
 class Cleric: Hero {
     var holyPower: Int
-    var maxHolPower: Int = 25
+    var maxHolyPower: Int = 25
     
     init(holyPower: Int, bag: Bag, name: String, hp: Int, maxHp: Int) {
         self.holyPower = holyPower
@@ -24,13 +24,30 @@ class Cleric: Hero {
     
     func massHeal(heroes: [Hero]) {
         let healAmount = 10
-        print("\(name) heals all allies by \(healAmount) HP!")
-        heroes.filter { $0.isAlive() }
-              .forEach { $0.heal(amount: healAmount) }
+        
+        if isAttackSuccessful() {
+            print("\(name) heals all allies by \(healAmount) HP!")
+            heroes.forEach { $0.heal(amount: healAmount) }
+        } else {
+            holyPower -= 10
+            print("\(name)´s attack missed!")
+        }
     }
     
     func isImmuneTo(type: StatusEffectType) -> Bool {
         return type == .poison
+    }
+    
+    override func skipToRecharge() {
+        holyPower += 10
+        print("\(name) sits out a round to gather his spritual strength!")
+    }
+    
+    override func normalRecharge() {
+        holyPower += 2
+        if holyPower > maxHolyPower {
+            holyPower = maxHolyPower
+        }
     }
 }
 
