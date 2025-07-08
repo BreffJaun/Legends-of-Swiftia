@@ -16,7 +16,7 @@ extension Game {
             StoryStep(
                 title: "Step 1: Forest Edge",
                 descriptionLines: [
-                    "You stand at the entrance of the Whispering Woods.",
+                    "You stand at the entrance of the Emerald Grove.",
                     "Birdsong fades as thick vines line the path ahead.",
                     "Something unnatural clings to the air."
                 ],
@@ -69,6 +69,23 @@ extension Game {
                             "You sit in silence, the forest watching.",
                             "Nothing stirs—perhaps a moment of peace."
                         ]
+                    )
+                ]
+            ),
+            
+            // TRANSITION SCENE 1
+            StoryStep(
+                title: "Transition: Deeper into the Forest",
+                descriptionLines: [
+                    "The sounds of the forest edge begin to fade.",
+                    "Only the crunching of twigs underfoot remains.",
+                    "The trees grow denser, the air heavier — you continue onward."
+                ],
+                choices: [
+                    Choice(
+                        description: ["Keep walking..."],
+                        effect: { return true },
+                        consequenceText: []
                     )
                 ]
             ),
@@ -133,6 +150,22 @@ extension Game {
                     )
                 ]
             ),
+            // TRANSITION SCENE 2
+            StoryStep(
+                title: "Transition: Whispering Leaves",
+                descriptionLines: [
+                    "A cold breeze whispers through the leaves above.",
+                    "It carries faint murmurs — perhaps voices, perhaps wind.",
+                    "You press on, alert and silent."
+                ],
+                choices: [
+                    Choice(
+                        description: ["Stay focused and move on..."],
+                        effect: { return true },
+                        consequenceText: []
+                    )
+                ]
+            ),
 
             // STEP 3
             StoryStep(
@@ -193,6 +226,22 @@ extension Game {
                     )
                 ]
             ),
+            // TRANSITION SCENE 3
+            StoryStep(
+                title: "Transition: Moss-Covered Paths",
+                descriptionLines: [
+                    "The path is now lined with thick moss and gnarled roots.",
+                    "Every step feels uncertain, the ground soft and damp.",
+                    "No turning back now."
+                ],
+                choices: [
+                    Choice(
+                        description: ["Continue forward..."],
+                        effect: { return true },
+                        consequenceText: []
+                    )
+                ]
+            ),
 
             // STEP 4
             StoryStep(
@@ -250,6 +299,22 @@ extension Game {
                             "You avoid the shifting tendrils and move forward unharmed.",
                             "Best not to disturb what lies below."
                         ]
+                    )
+                ]
+            ),
+            // TRANSITION SCENE 3
+            StoryStep(
+                title: "Transition: The Heart of the Grove",
+                descriptionLines: [
+                    "Faint green light filters through the canopy.",
+                    "The silence is almost sacred here, broken only by your breath.",
+                    "Something ancient watches from the shadows."
+                ],
+                choices: [
+                    Choice(
+                        description: ["Step deeper into the grove..."],
+                        effect: { return true },
+                        consequenceText: []
                     )
                 ]
             ),

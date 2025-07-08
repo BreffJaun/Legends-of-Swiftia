@@ -500,11 +500,25 @@ class Game {
     }
     
     func setDifficultyLevel() -> Difficulty {
+//        let difficultyDescriptions = [
+//            "(1) {~} Emerald Grove     - A bright and welcoming forest. (Easy)",
+//            "(2) {^} Twilight Thicket  - Shadows linger here.           (Medium)",
+//            "(3) [O] Whispering Abyss  - Only the brave dare enter.     (Hard)"
+//        ]
         let difficultyDescriptions = [
-            "(1) {~} Emerald Grove     - A bright and welcoming forest. (Easy)",
-            "(2) {^} Twilight Thicket  - Shadows linger here.           (Medium)",
-            "(3) [O] Whispering Abyss  - Only the brave dare enter.     (Hard)"
+            "(1) {~} Emerald Grove                             [Easy]",
+            "     - A bright and welcoming forest.",
+            "       Home of Duc & Dukas, Keepers of the Confused.",
+            "",
+            "(2) {^} Twilight Thicket                          [Medium]",
+            "     - Shadows linger between twisted trees.",
+            "       Domain of Martinius, the Examiner.",
+            "",
+            "(3) [O] Whispering Abyss                          [Hard]",
+            "     - Only the brave dare enter.",
+            "       Where Justulor, Warden of Exams, awaits..."
         ]
+
         
         boxedScreen(
             title: "Choose Your Path",
@@ -523,10 +537,11 @@ class Game {
                     boxedScreen(
                         title: "{~} Emerald Grove",
                         lines: [
-                            "The trees sway gently in the wind, their leaves glowing ",
+                            "The trees sway gently in the wind, their leaves glowing",
                             "with morning dew.",
                             "",
-                            "A place of hope — but danger may still lurk in the shadows..."
+                            "But be warned — Duc & Dukas, Keepers of the Confused,",
+                            "cheerfully turn every question into an unexpected adventure..."
                         ]
                     )
                     pressEnterToContinue()
@@ -538,7 +553,8 @@ class Game {
                         lines: [
                             "A faint fog lies between the gnarled roots and crooked trunks.",
                             "",
-                            "Every step echoes as if watched by unseen eyes..."
+                            "Some say Martinius, the Examiner, roams these parts still,",
+                            "quizzing wanderers with riddles and relentless scrutiny..."
                         ]
                     )
                     pressEnterToContinue()
@@ -550,7 +566,8 @@ class Game {
                         lines: [
                             "The forest here is silent — too silent. No birds. No wind.",
                             "",
-                            "You hear whispers that vanish when you try to listen."
+                            "Deep below, Justulor, Warden of Exams, sharpens his quill.",
+                            "He waits for those bold enough to face the final challenge..."
                         ]
                     )
                     pressEnterToContinue()

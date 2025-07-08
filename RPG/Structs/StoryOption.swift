@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct StoryOption {
-    let description: String
-    let consequence: (Game) -> Void
-}
+//struct StoryOption {
+//    let description: String
+//    let consequence: (Game) -> Void
+//}
 
 
 
