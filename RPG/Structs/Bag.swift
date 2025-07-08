@@ -56,9 +56,8 @@ struct Bag: CustomStringConvertible {
         items[index].usesLeft -= 1
         if items[index].isDepleted() {
             print("\(item.name) has been used up and will be removed.")
-            waitASec(sec: 1.5)
+            pressEnterToContinue()
         }
-
         removeDepletedItems()
     }
 

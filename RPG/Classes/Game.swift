@@ -63,16 +63,28 @@ class Game {
                 pressEnterToContinue()
             }
             resetSettings()
-            boxedScreen(title: "Game finished", lines: ["Thanks for playing!"])
-            waitASec(sec: 2)
+            boxedScreen(title: "Legends of Swiftia", lines: [
+                "You have conquered darkness and restored peace.",
+                "Swiftia shall never forget your name.",
+                "",
+                "Thank you for playing!"
+            ])
+            waitASec(sec: 4)
         }
     }
     
     
     func runRound(step: StoryStep) -> Bool {
         guard let player = player else { return false }
-        var selectedIndex: Int?
+        if step.choices[0].consequenceText.isEmpty {
+            let meaningfulLines = step.descriptionLines.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+               if !meaningfulLines.isEmpty {
+                   boxedScreen(title: step.title, lines: meaningfulLines)
+               }
+               return true
+        }
         
+        var selectedIndex: Int?
         repeat {
             clearScreen()
             var choiceTexts = step.choices.enumerated().map { (i, choice) in
@@ -85,6 +97,7 @@ class Game {
             
             boxedScreen(title: step.title, lines: fullText)
             print("Enter [1], [2], [3], [4] for a choice, [b] Open bag, (q) ➤ Quit game: ", terminator: "")
+            waitASec(sec: 1)
                     
         
             if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
@@ -102,23 +115,27 @@ class Game {
                     waitASec(sec: 1)
                 }
             }
-            for hero in heroes {
+            let heroesWithEffects = heroes.filter { !$0.statusEffects.isEmpty }
+
+            for hero in heroesWithEffects {
                 hero.processStatusEffects()
                 waitASec(sec: 0.75)
             }
-            let anyHasStatusEffects = heroes.contains { !$0.statusEffects.isEmpty }
 
-            if anyHasStatusEffects {
+            if !heroesWithEffects.isEmpty {
                 pressEnterToContinue()
             }
 
-            
         } while selectedIndex == nil
-
+        
         let choice = step.choices[selectedIndex!]
 
-        boxedScreen(title: "Consequence", lines: choice.consequenceText)
-        waitASec(sec: 3)
+        let meaningfulLines = choice.consequenceText.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        if !meaningfulLines.isEmpty {
+            boxedScreen(title: "Consequence", lines: choice.consequenceText)
+            waitASec(sec: 2)
+        }
+        
 
         if choice.effect() {
             return true
@@ -293,7 +310,7 @@ class Game {
                     initGame()
                     return
                 case "2":
-                    print("Thanks for playing. Goodbye!")
+                    print("You walk away from the tale of Swiftia. The legends will go on — without you...")
                     waitASec(sec: 2)
                     exit(0)
                 default:

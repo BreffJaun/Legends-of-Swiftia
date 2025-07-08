@@ -47,7 +47,11 @@ class Warrior: Hero {
     }
         
     override func skipToRecharge() {
-        endurance += 10
+        if endurance + 10 <= maxEndurance {
+            endurance += 10
+        } else {
+            endurance = maxEndurance
+        }
         print("\(name) sits out a round to gather his physical strength!")
     }
     

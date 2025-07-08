@@ -302,7 +302,7 @@ extension Game {
                     )
                 ]
             ),
-            // TRANSITION SCENE 3
+            // TRANSITION SCENE 4
             StoryStep(
                 title: "Transition: The Heart of the Grove",
                 descriptionLines: [
@@ -320,65 +320,117 @@ extension Game {
             ),
 
             // STEP 5
+            // STEP 5: Duc & Dukas – Boss Enemies
             StoryStep(
-                title: "Step 5: Forgotten Shrine",
+                title: "Step 5: Duc & Dukas – Keepers of the Confused",
                 descriptionLines: [
-                    "An ancient shrine looms in a clearing.",
-                    "Strange symbols glow faintly along its stones.",
-                    "You feel watched, yet welcomed."
+                    "The ground trembles beneath your feet.",
+                    "Two massive figures break through the underbrush.",
+                    "\"I am Duc...\" growls one. \"...and I am Dukas,\" finishes the other.",
+                    "\"You have gone too far!\""
                 ],
                 choices: [
-                    // HARMLOS
                     Choice(
-                        description: ["Sit peacefully among the shrine stones"],
-                        effect: { return true },
-                        consequenceText: [
-                            "Time passes slowly, quietly.",
-                            "You feel spiritually centered, untouched by harm."
-                        ]
-                    ),
-                    // STATUS
-                    Choice(
-                        description: ["Trace the runes with your fingers"],
+                        description: ["Face Duc & Dukas in a battle!"],
                         effect: {
-                            if let hero = self.heroes.randomElement() {
-                                let burn = StatusEffect(type: .burn, duration: 3)
-                                hero.applyStatus(status: burn)
-                            }
-                            return true
+//                            return self.fight(heroes: self.heroes, minions: 4)
+                            let duc = Minion(name: "Duc", hp: 60)
+                            let dukas = Minion(name: "Dukas", hp: 60)
+                            return self.fight(heroes: self.heroes, minions: 0, presetEnemies: [duc, dukas])
                         },
                         consequenceText: [
-                            "The runes flare, burning your skin.",
-                            "One hero bears the mark—cursed with burning pain."
+                            "Duc raises his stone club and roars angrily",
+                            "and Dukas slams the ground with thunderous force.",
+                            "A fierce battle erupts!"
                         ]
                     ),
-                    // ITEM
-                    Choice(
-                        description: ["Offer a prayer at the shrine"],
-                        effect: {
-                            for hero in self.heroes {
-                                hero.bag.items.append(Item(name: "Blessed Stone", health: 0, damage: 0, defense: 7, usesLeft: 1))
-                            }
-                            return true
-                        },
-                        consequenceText: [
-                            "Warmth fills your hearts as a gift appears at your feet.",
-                            "You receive sacred stones imbued with ancient protection."
-                        ]
-                    ),
-                    // FIGHT
-                    Choice(
-                        description: ["Inspect the idol at the shrine's center"],
-                        effect: {
-                            return self.fight(heroes: self.heroes, minions: 3)
-                        },
-                        consequenceText: [
-                            "The idol awakens! Stone guardians emerge from the earth.",
-                            "Your challenge has been accepted."
-                        ]
-                    )
                 ]
             ),
+
+            // STEP 6: Transition – Epilogue
+            StoryStep(
+                title: "Transition: Sunbeams through the Mist",
+                descriptionLines: [
+                    "Duc and Dukas finally fall heavily to the ground.",
+                    "The forest breathes a sigh of relief — silence returns.",
+                    "A last sunbeam breaks through the branches, warming your faces.",
+                    "",
+                    "Relief floods through you.",
+                    "You have survived — and triumphed."
+                ],
+                choices: [
+                    Choice(
+                        description: ["Leave the forest in peace"],
+                        effect: {
+                            print("The heroes step out of the forest’s shadow into a new day.")
+                            return true
+                        },
+                        consequenceText: []
+                    )
+                ]
+            )
+
+            
+            
+//            StoryStep(
+//                title: "Step 5: Forgotten Shrine",
+//                descriptionLines: [
+//                    "An ancient shrine looms in a clearing.",
+//                    "Strange symbols glow faintly along its stones.",
+//                    "You feel watched, yet welcomed."
+//                ],
+//                choices: [
+//                    // HARMLOS
+//                    Choice(
+//                        description: ["Sit peacefully among the shrine stones"],
+//                        effect: { return true },
+//                        consequenceText: [
+//                            "Time passes slowly, quietly.",
+//                            "You feel spiritually centered, untouched by harm."
+//                        ]
+//                    ),
+//                    // STATUS
+//                    Choice(
+//                        description: ["Trace the runes with your fingers"],
+//                        effect: {
+//                            if let hero = self.heroes.randomElement() {
+//                                let burn = StatusEffect(type: .burn, duration: 3)
+//                                hero.applyStatus(status: burn)
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "The runes flare, burning your skin.",
+//                            "One hero bears the mark—cursed with burning pain."
+//                        ]
+//                    ),
+//                    // ITEM
+//                    Choice(
+//                        description: ["Offer a prayer at the shrine"],
+//                        effect: {
+//                            for hero in self.heroes {
+//                                hero.bag.items.append(Item(name: "Blessed Stone", health: 0, damage: 0, defense: 7, usesLeft: 1))
+//                            }
+//                            return true
+//                        },
+//                        consequenceText: [
+//                            "Warmth fills your hearts as a gift appears at your feet.",
+//                            "You receive sacred stones imbued with ancient protection."
+//                        ]
+//                    ),
+//                    // FIGHT
+//                    Choice(
+//                        description: ["Inspect the idol at the shrine's center"],
+//                        effect: {
+//                            return self.fight(heroes: self.heroes, minions: 3)
+//                        },
+//                        consequenceText: [
+//                            "The idol awakens! Stone guardians emerge from the earth.",
+//                            "Your challenge has been accepted."
+//                        ]
+//                    )
+//                ]
+//            ),
             
 //            StoryStep(
 //                title: "Final Step: The Office of Doom",
@@ -467,14 +519,18 @@ extension Game {
     }
     
     
-    func fight(heroes: [Hero], minions: Int) -> Bool {
-        let player = heroes[0]
-        let companions = heroes.dropFirst().filter { $0.isAlive() } // Dropped myself on index 0
+    func fight(heroes: [Hero], minions: Int, presetEnemies: [Enemy] = []) -> Bool {
+        let player = self.heroes[0]
+        let companions = self.heroes.dropFirst().filter { $0.isAlive() } // Dropped myself on index 0
         var hasShownBattleStand = false
         
-        for i in 1...minions {
-            enemies.append(Minion(name: "Minion \(i)", hp: 30))
-        }
+        if minions > 0 {
+                for i in 1...minions {
+                    self.enemies.append(Minion(name: "Minion \(i)", hp: 30))
+                }
+            } else if !presetEnemies.isEmpty {
+                self.enemies += presetEnemies
+            }
                 
         boxedScreen(title: "Battle Start", lines: [
             "\(!companions.isEmpty ? "You and your companions " : "You " )are facing \(enemies.count) enemies!",
@@ -483,8 +539,8 @@ extension Game {
         pressEnterToContinue()
         
         
-        while heroes.contains(where: { $0.isAlive() }) &&
-                enemies.contains(where: { $0.isAlive() }) {
+        while self.heroes.contains(where: { $0.isAlive() }) &&
+                self.enemies.contains(where: { $0.isAlive() }) {
             
             
             if !hasShownBattleStand {
@@ -495,7 +551,7 @@ extension Game {
             }
             
             // MARK: HERO ACTIONS
-            for hero in heroes {
+            for hero in self.heroes {
                 // Check if there are still enemies, so the other heroes don`t need to make thier round to fight against "nothing"
                 if getLivingEnemies().isEmpty {
                     break
@@ -522,7 +578,7 @@ extension Game {
                         waitASec(sec: 1.5)
                         return false
                     } else if input == "1" {
-                        let livingEnemies = enemies.enumerated().filter { $0.element.isAlive() }
+                        let livingEnemies = self.enemies.enumerated().filter { $0.element.isAlive() }
                         let enemyLines = livingEnemies.map { "(\($0.offset + 1)) ➤ \($0.element.name) (HP: \($0.element.hp))" }
                         boxedScreen(title: "Choose Enemy", lines: enemyLines)
                         print("Enter [number] for choose enemy, (q) ➤ Quit game: ", terminator: "")
@@ -546,11 +602,11 @@ extension Game {
                         }
                     } else if input == "2" {
                         // Setting enemies with index (for visual presentation) and without for the code syntax
-                        let livingEnemiesWithIndex = enemies.enumerated().filter { $0.element.isAlive() }
-                        let livingEnemies = enemies.filter { $0.isAlive() }
+                        let livingEnemiesWithIndex = self.enemies.enumerated().filter { $0.element.isAlive() }
+                        let livingEnemies = self.enemies.filter { $0.isAlive() }
 
                         // Setting heroes without index because we didn´t need to show them for selection
-                        let livingHeroes = heroes.filter { $0.isAlive() }
+                        let livingHeroes = self.heroes.filter { $0.isAlive() }
                         
                         switch hero {
                         case let warrior as Warrior:
@@ -571,7 +627,6 @@ extension Game {
                                 waitASec(sec: 1)
                             }
                             pressEnterToContinue()
-    //                      return true
                         case let magician as Magician:
                             magician.castFireball(enemies: livingEnemies)
                             pressEnterToContinue()
@@ -583,12 +638,13 @@ extension Game {
                         }
                     } else if input == "3" {
                         hero.skipToRecharge()
+                        pressEnterToContinue()
                     } else {
                         print("Invalid input. Please try again: ", terminator: "")
                         waitASec(sec: 1)
                     }
                 }
-                for hero in heroes {
+                for hero in self.heroes {
                     hero.processStatusEffects()
                 }
 
@@ -596,13 +652,13 @@ extension Game {
                 self.enemies = getLivingEnemies()
             }
             
-            if !enemies.isEmpty {
-                boxedScreen(title: "After Allies Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
+            if !self.enemies.isEmpty {
+                boxedScreen(title: "After Allies Turn", lines: getStatusLines(heroes: self.heroes, enemies: self.enemies))
                 pressEnterToContinue()
                 waitASec(sec: 1)
                 
                 // MARK: ENEMY ACTIONS
-                for enemy in enemies {
+                for enemy in self.enemies {
                     if let target = heroes.randomElement() {
                         boxedScreen(title: "\(enemy.name)'s Turn", lines: [
                             "\(enemy.name) attacks \(target.name)!"
@@ -615,7 +671,7 @@ extension Game {
                 }
                 
                 if !heroes.isEmpty {
-                    boxedScreen(title: "After Enemy Turn", lines: getStatusLines(heroes: heroes, enemies: enemies))
+                    boxedScreen(title: "After Enemy Turn", lines: getStatusLines(heroes: self.heroes, enemies: self.enemies))
                     pressEnterToContinue()
                 } else {
                     continue

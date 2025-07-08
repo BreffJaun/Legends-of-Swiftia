@@ -18,11 +18,20 @@ class Minion: Enemy {
             hp: hp,
             maxHp: 30
         )
+        
+        if name == "Duc" || name == "Dukas" {
+            maxHp = 60
+            endurance = 35
+            maxEndurance = 35
+        }
     }
     
     func minionSpecialAttack(target: Character) {
-        let specialDamage = 15
+        var specialDamage = 15
         let enduranceCost = 10
+        if name == "Duc" || name == "Dukas" {
+            specialDamage = 20
+        }
         
         guard endurance >= enduranceCost else {
             print("\(name) doesn't have enough endurance for an attack with a ghostly blade!")
