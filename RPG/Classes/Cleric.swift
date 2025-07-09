@@ -34,7 +34,7 @@ class Cleric: Hero {
         }
     }
     
-    func isImmuneTo(type: StatusEffectType) -> Bool {
+    override func isImmuneTo(type: StatusEffectType) -> Bool {
         return type == .poison
     }
     

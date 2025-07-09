@@ -325,12 +325,12 @@ class Game {
     
     func chooseHero() {
         let availableHeroes = [
-//            Warrior(shield: 15, bag: Bag(), name: "Warrior", hp: 100, maxHp: 100),
-//            Magician(mana: 25, bag: Bag(), name: "Magician", hp: 80, maxHp: 80),
-//            Cleric(holyPower: 25, bag: Bag(), name: "Cleric", hp: 60, maxHp: 60)
-            Warrior(shield: 15, bag: Bag(), name: "Warrior", hp: 10, maxHp: 100),
-            Magician(mana: 25, bag: Bag(), name: "Magician", hp: 10, maxHp: 80),
-            Cleric(holyPower: 25, bag: Bag(), name: "Cleric", hp: 10, maxHp: 60)
+            Warrior(shield: 15, bag: Bag(), name: "Warrior", hp: 100, maxHp: 100),
+            Magician(mana: 25, bag: Bag(), name: "Magician", hp: 80, maxHp: 80),
+            Cleric(holyPower: 25, bag: Bag(), name: "Cleric", hp: 60, maxHp: 60)
+//            Warrior(shield: 15, bag: Bag(), name: "Warrior", hp: 10, maxHp: 100),
+//            Magician(mana: 25, bag: Bag(), name: "Magician", hp: 10, maxHp: 80),
+//            Cleric(holyPower: 25, bag: Bag(), name: "Cleric", hp: 10, maxHp: 60)
         ]
 
         let heroDescriptions = [

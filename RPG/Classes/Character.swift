@@ -73,12 +73,17 @@ class Character: CustomStringConvertible {
     }
     
     func applyStatus(status: StatusEffect) {
-     if let index = statusEffects.firstIndex(where: { $0.type == status.type }) {
-         statusEffects[index].duration = status.duration
-         print("\(name) renews the effect \(status.type.rawValue.capitalized) for \(status.duration) rounds.")
-    } else {
-        statusEffects.append(status)
-        print("\(name) is now affected by \(status.type.rawValue.capitalized) for \(status.duration) rounds.")
+        if isImmuneTo(type: status.type) {
+            print("\(name) is immune to \(status.type.rawValue.capitalized)!")
+            return
+        }
+        
+        if let index = statusEffects.firstIndex(where: { $0.type == status.type }) {
+            statusEffects[index].duration = status.duration
+            print("\(name) renews the effect \(status.type.rawValue.capitalized) for \(status.duration) rounds.")
+        } else {
+            statusEffects.append(status)
+            print("\(name) is now affected by \(status.type.rawValue.capitalized) for \(status.duration) rounds.")
         }
     }
     
@@ -92,6 +97,10 @@ class Character: CustomStringConvertible {
     
     func canAct() -> Bool {
         return !statusEffects.contains { $0.type == .freeze || $0.type == .paralyze }
+    }
+    
+    func isImmuneTo(type: StatusEffectType) -> Bool {
+        return false
     }
 }
 
