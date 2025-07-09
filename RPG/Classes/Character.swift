@@ -61,13 +61,15 @@ class Character: CustomStringConvertible {
         
         if isAttackSuccessful() {
             if let warrior = target as? Warrior, warrior.shield > totalDamage {
+                playSound(path: shieldDefendSound)
                 print("The warrior's shield has blocked the attack!")
                 return
             }
-
+            playSound(path: attackSound)
             print("\(name) attacks \(target.name) for \(totalDamage) damage.")
             target.takeDamage(amount: totalDamage)
         } else {
+            playSound(path: wasntSuccessfullSound)
             print("\(name)´s attack missed!")
         }
     }

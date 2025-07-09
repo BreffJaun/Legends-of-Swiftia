@@ -36,14 +36,17 @@ class Game {
         clearScreen()
         roundCounter = 1
         minionsSpawned = false
+//        playSound(path: menuSound, loops: -1, volume: 0.005)
         startScreen()
         
         while true {
+            playSound(path: menuSound, loops: -1, volume: 0.005)
             menu()
-
+            
             let storySteps: [StoryStep]
             switch difficulty {
             case .easy:
+                playSound(path: gameplayEasySound, loops: -1, volume: 0.05)
                 storySteps = easyStorySteps()
             case .medium:
                 return
@@ -56,12 +59,13 @@ class Game {
             }
 
             for step in storySteps {
-                let shouldContinue = runRound(step: step)
+                let shouldContinue = round(step: step)
                 if !shouldContinue {
                     break 
                 }
-                pressEnterToContinue()
+//                pressEnterToContinue()
             }
+            playSound(path: winSound)
             resetSettings()
             boxedScreen(title: "Legends of Swiftia", lines: [
                 "You have conquered darkness and restored peace.",
@@ -74,7 +78,7 @@ class Game {
     }
     
     
-    func runRound(step: StoryStep) -> Bool {
+    func round(step: StoryStep) -> Bool {
         guard let player = player else { return false }
         if step.choices[0].consequenceText.isEmpty {
             let meaningfulLines = step.descriptionLines.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
@@ -102,6 +106,7 @@ class Game {
         
             if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
                 if input.lowercased() == "b" {
+                    playSound(path: openBagSound)
                     player.bag.menu(currentHero: player)
                     continue
                 } else if input.lowercased() == "q" {
@@ -139,40 +144,12 @@ class Game {
         
 
         if choice.effect() {
+//            playSound(path: winSound)
             return true
         } else {
+            playSound(path: gameOverSound)
             return false
         }
-    }
-
-    
-    
-    func round() {
-        boxedScreen(title: "Round \(roundCounter)", lines: ["Round \(roundCounter) is running..."])
-        pressEnterToContinue()
-        
-        printStatus()
-
-        // MARK: HERO ACTIONS
-        // Not the yellow from the egg....
-        heroes.forEach { hero in
-            if let targetEnemy = enemies.randomElement() {
-                hero.attack(target: targetEnemy)
-            }
-        }
-        
-        // MARK: ENEMY ACTIONS
-        // Also nit the yellow from the egg...
-        enemies.forEach { enemy in
-            if let targetHero = heroes.randomElement() {
-                enemy.attack(target: targetHero)
-            }
-        }
-        
-        enemies.removeAll { $0.hp <= 0 }
-        heroes.removeAll { $0.hp <= 0 }
-        
-        roundCounter += 1
     }
     
     func printStatus() {

@@ -42,7 +42,7 @@ class Minion: Enemy {
         endurance -= 10
     }
     
-    func randomAttack(target: Character) {
+    override func randomAttack(target: Character, heroes: [Hero]?) -> [Minion]? {
         if isAttackSuccessful() {
             if endurance >= 10 {
                 
@@ -60,6 +60,7 @@ class Minion: Enemy {
         } else {
             print("\(name)´s attack missed!")
         }
+        return nil
     }
     
     override func normalRecharge() {

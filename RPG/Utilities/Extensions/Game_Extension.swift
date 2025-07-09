@@ -25,6 +25,7 @@ extension Game {
                     Choice(
                         description: ["Approach the rustling bushes"],
                         effect: {
+                            playSound(path: minionAttackSound)
                             return self.fight(minions: 2)
                         },
                         consequenceText: [
@@ -112,6 +113,7 @@ extension Game {
                     Choice(
                         description: ["Examine the bones beneath the ivy"],
                         effect: {
+                            playSound(path: itemPickupSound)
                             if let hero = self.heroes.randomElement() {
                                 hero.bag.items.append(Item(name: "Ancient Talisman", health: 0, damage: 0, defense: 5, usesLeft: 1))
                             }
@@ -141,6 +143,7 @@ extension Game {
                     Choice(
                         description: ["Clear the thick vines blocking your way"],
                         effect: {
+                            playSound(path: minionAttackSound)
                             return self.fight(minions: 3)
                         },
                         consequenceText: [
@@ -179,6 +182,7 @@ extension Game {
                     Choice(
                         description: ["Inspect the altar covered in vines"],
                         effect: {
+                            playSound(path: itemPickupSound)
                             for hero in self.heroes {
                                 hero.bag.items.append(Item(name: "Wisp Essence", health: 0, damage: 15, defense: 0, usesLeft: 1))
                             }
@@ -270,6 +274,7 @@ extension Game {
                     Choice(
                         description: ["Examine the glowing cocoon in the roots"],
                         effect: {
+                            playSound(path: itemPickupSound)
                             if let hero = self.heroes.randomElement() {
                                 hero.bag.items.append(Item(name: "Spider Silk Wrap", health: 10, damage: 0, defense: 3, usesLeft: 1))
                             }
@@ -284,6 +289,7 @@ extension Game {
                     Choice(
                         description: ["Tread near the cracked earth"],
                         effect: {
+                            playSound(path: minionAttackSound)
                             return self.fight(minions: 4)
                         },
                         consequenceText: [
@@ -333,7 +339,7 @@ extension Game {
                     Choice(
                         description: ["Face Duc & Dukas in a battle!"],
                         effect: {
-//                            return self.fight(heroes: self.heroes, minions: 4)
+                            playSound(path: minionAttackSound)
                             let duc = Minion(name: "Duc", hp: 60)
                             let dukas = Minion(name: "Dukas", hp: 60)
                             return self.fight(minions: 0, presetEnemies: [duc, dukas])
@@ -346,6 +352,33 @@ extension Game {
                     ),
                 ]
             ),
+            // STEP 5
+            // STEP 5: Justulor – Boss Enemy
+//            StoryStep(
+//                title: "Final Step: The Office of Doom",
+//                descriptionLines: [
+//                    "You enter a dimly lit office filled with stacks of ungraded papers.",
+//                    "At the head of the cluttered desk sits Justulor, Warden of Exams.",
+//                    "He glares at you with a mix of tiredness and deadly seriousness.",
+//                    "Prepare yourself for the ultimate challenge!"
+//                ],
+//                choices: [
+//                    Choice(
+//                        description: ["Face Justulor, Warden of Exams, Boss of Eternal Deadlines"],
+//                        effect: {
+//                            playSound(path: minionAttackSound)
+//                            let justulor = Boss(curseDuration: 3, name: "Justulor, Warden of Exams", hp: 100, maxHp: 100)
+//                            return self.fight(minions: 0, presetEnemies: [justulor])
+//                        },
+//                        consequenceText: [
+//                            "\"Did you finish the homework?\" Justus growls.",
+//                            "You feel the weight of countless missed deadlines pressing down.",
+//                            "But victory means passing the course... or at least",
+//                            "surviving the lecture!"
+//                        ]
+//                    )
+//                ]
+//            ),
 
             // STEP 6: Transition – Epilogue
             StoryStep(
@@ -370,29 +403,7 @@ extension Game {
                 ]
             )
             
-//            StoryStep(
-//                title: "Final Step: The Office of Doom",
-//                descriptionLines: [
-//                    "You enter a dimly lit office filled with stacks of ungraded papers.",
-//                    "At the head of the cluttered desk sits Justulor, Warden of Exams.",
-//                    "He glares at you with a mix of tiredness and deadly seriousness.",
-//                    "Prepare yourself for the ultimate challenge!"
-//                ],
-//                choices: [
-//                    Choice(
-//                        description: ["Face Justulor, Warden of Exams, Boss of Eternal Deadlines"],
-//                        effect: {
-//                            // Hier übergibst du Justus als besonderen Boss
-//                            return self.fightBoss(heroes: self.heroes, bossName: "Justulor, Warden of Exams")
-//                        },
-//                        consequenceText: [
-//                            "\"Did you finish the homework?\" Justus growls.",
-//                            "You feel the weight of countless missed deadlines pressing down.",
-//                            "But victory means passing the course... or at least surviving the lecture!"
-//                        ]
-//                    )
-//                ]
-//            )
+
 
         ]
     }
@@ -509,6 +520,7 @@ extension Game {
                 
                 if let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines) {
                     if input.lowercased() == "b" {
+                        playSound(path: openBagSound)
                         hero.bag.menu(currentHero: player)
                         continue
                     } else if input.lowercased() == "q" {
@@ -601,7 +613,10 @@ extension Game {
                         boxedScreen(title: "\(enemy.name)'s Turn", lines: [
                             "\(enemy.name) attacks \(target.name)!"
                         ])
-                        enemy.attack(target: target)
+                        if let newMinions = enemy.randomAttack(target: target, heroes: self.heroes) {
+                            self.enemies.append(contentsOf: newMinions)
+//                            print("\(enemy.name) summoned \(newMinions.count) minions!")
+                        }
                         pressEnterToContinue()
                     }
                     self.heroes = getLivingHeroes()

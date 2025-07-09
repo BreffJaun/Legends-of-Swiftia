@@ -5,3 +5,4 @@ freopen("/dev/null", "w", stderr) // Sends all error outputs (stderr) to the tra
 
 
 game.start()
+

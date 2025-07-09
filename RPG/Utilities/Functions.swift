@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 // From former Project -> StreamFlex
 func clearScreen() {
@@ -111,5 +112,55 @@ func waitASec(sec: Double) {
 func isAttackSuccessful() -> Bool {
     return Int.random(in: 1...4) != 4
 }
+
+//============================================
+
+
+// MARK: MUSIC PLAYER
+
+var audioPlayer: AVAudioPlayer?
+var loop: Int?
+let basePath: String = "/Users/jeffbr/Documents/02-abschluss-rpg-BreffJaun/RPG/Sounds"
+
+//func playSound(path: String, loops: Int = 1) {
+//    let url = URL(fileURLWithPath: path)
+//    do {
+//        audioPlayer = try AVAudioPlayer(contentsOf: url)
+//        audioPlayer?.numberOfLoops = loops
+//        audioPlayer?.play()
+//    } catch {
+//        print("Error when playing the sound: \(error) -- \(error.localizedDescription)")
+//    }
+//}
+
+func playSound(path: String, loops: Int = 0, volume: Float = 0.1) {
+    let url = URL(fileURLWithPath: path)
+    do {
+        audioPlayer = try AVAudioPlayer(contentsOf: url)
+        audioPlayer?.numberOfLoops = loops
+        audioPlayer?.volume = volume
+        audioPlayer?.prepareToPlay()
+        audioPlayer?.play()
+    } catch {
+        print("❌ Fehler beim Abspielen von Sound: \(error.localizedDescription)")
+    }
+}
+
+let attackSound = "\(basePath)/attack.mp3"
+let castFireballSound = "\(basePath)/castFireball.mp3"
+let closeBagSound = "\(basePath)/closeBagSound.mp3"
+let gameOverSound = "\(basePath)/gameOver.mp3"
+let gameplayEasySound = "\(basePath)/gameplayEasy.mp3"
+let gameplayMediumSound = "\(basePath)/gameplayMedium.mp3"
+let gameplayHardSound = "\(basePath)/gameplayHard.mp3"
+let itemPickupSound = "\(basePath)/itemPickup.mp3"
+let minionAttackSound = "\(basePath)/minionAttack.mp3"
+let openBagSound = "\(basePath)/openBag.mp3"
+let powerStrikeSound = "\(basePath)/powerStrike.mp3"
+let useItemSound = "\(basePath)/useItem.mp3"
+let wasntSuccessfullSound = "\(basePath)/wasntSuccessfull.mp3"
+let winSound = "\(basePath)/win.mp3"
+let shieldDefendSound = "\(basePath)/shieldDefend.mp3"
+let menuSound = "\(basePath)/menu.mp3"
 
 

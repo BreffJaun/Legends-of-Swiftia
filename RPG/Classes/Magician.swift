@@ -33,6 +33,7 @@ class Magician: Hero {
         
         
         if isAttackSuccessful() {
+            playSound(path: castFireballSound)
             print("\(name) throws a fireball and deals \(fireballDamage) damage to all enemies!")
             enemies.forEach { $0.takeDamage(amount: fireballDamage) }
             mana -= manaCost

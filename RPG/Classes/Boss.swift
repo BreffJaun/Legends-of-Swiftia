@@ -59,9 +59,9 @@ class Boss: Enemy {
             return nil
         }
         
-        print("\(name) summoned a minion!")
-        let protMinion1 = Minion(name: "Protector Minion 1 from \(name)", hp: 30)
-        let protMinion2 = Minion(name: "Protector Minion 2 from \(name)", hp: 30)
+        print("\(name) summoned minions!")
+        let protMinion1 = Minion(name: "Protector Minion 1 of \(name)", hp: 30)
+        let protMinion2 = Minion(name: "Protector Minion 2 of \(name)", hp: 30)
         let protectorMinions = [protMinion1, protMinion2]
         hasSummonedMinions = true
         return protectorMinions
@@ -87,12 +87,12 @@ class Boss: Enemy {
         mana -= manaCost
     }
     
-    func randomAttack(target: Character, heroes: [Hero]) {
+    override func randomAttack(target: Character, heroes: [Hero]?) -> [Minion]? {
         if !hasSummonedMinions && hp <= maxHp / 2 {
-            _ = summonMinions()
-            return
+            let summoned = summonMinions()
+            return summoned
         }
-        
+    
         var availableActions: [() -> Void] = []
 
         availableActions.append {
@@ -102,13 +102,13 @@ class Boss: Enemy {
 
         if endurance >= 10 {
             availableActions.append {
-                self.areaAttack(heroes: heroes)
+                self.areaAttack(heroes: heroes!)
             }
         }
 
         if !hasUsedUltimate {
             availableActions.append {
-                self.bossSpecialAttack(heroes: heroes)
+                self.bossSpecialAttack(heroes: heroes!)
             }
         }
 
@@ -121,7 +121,7 @@ class Boss: Enemy {
         if availableActions.isEmpty {
             print("\(name) is resting to regain endurance...")
             targetedRecharge()
-            return
+            return nil
         }
         
         if isAttackSuccessful() {
@@ -130,6 +130,7 @@ class Boss: Enemy {
         } else {
             print("\(name)´s attack missed!")
         }
+        return nil
     }
 
     

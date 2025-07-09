@@ -63,7 +63,7 @@
 | ✅   |                      | #256   | Combine formatting, delays, and symbols to create animation-like console effects                  |
 | ❌   |                      | #257   | Add dynamic color output for hero HP: green (high), yellow (medium), red (low/critical)           |
 | ❌   |                      | #257   | Display all boss/miniboss-related messages in a unique color                                      |
-| ⬜   |                      | #257   | Integrate sound effects for actions like attacks, potion use, and hero death                      |
+| ✅   |                      | #257   | Integrate sound effects for actions like attacks, potion use, and hero death                      |
 | ⬜   |                      | #257   | Implement rare items with conditional availability (e.g., only when 1 hero remains)               |
 | ⬜   |                      | #257   | Add item/effect to double hero’s attack power for 1 round                                         |
 | ⬜   |                      | #257   | Add item/effect to revive a fallen hero                                                           |
@@ -81,9 +81,9 @@
 | ✅   |                      | #258   | Visually highlight random events (e.g. with special symbols, colors, or console animation)        |
 | ✅   |                      | #258   | Add visual cues that draw user attention to random events                                         |
 | ✅   |                      | #258   | Ensure consistent visual formatting for easy recognition of different random event types          |
-| ⬜   | Wednesday, 09.07.2025| ---    | General Debugging: Fix known or emerging bugs                                                     |
+| ✅   | Wednesday, 09.07.2025| ---    | General Debugging: Fix known or emerging bugs                                                     |
 | ⬜   |                      | ---    | Code Refactoring: Clean up redundant, messy, or duplicated logic                                  |
-| ⬜   |                      | ---    | Visual Polish: Improve console output with better layout, consistent formatting, colors           |
+| ✅   |                      | ---    | Visual Polish: Improve console output with better layout, consistent formatting, colors           |
 | ⬜   |                      | ---    | Review previous tickets: Ensure all requirements are fully met                                    |
 | ⬜   |                      | ---    | Optional: Add quality-of-life improvements or micro-features                                      |
 

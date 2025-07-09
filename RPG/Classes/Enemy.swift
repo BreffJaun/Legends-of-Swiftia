@@ -19,6 +19,11 @@ class Enemy: Character {
     }
     
     func normalRecharge() {}
+    
+    func randomAttack(target: Character, heroes: [Hero]?) -> [Minion]? {
+        return nil
+    }
+    
 }
 
 

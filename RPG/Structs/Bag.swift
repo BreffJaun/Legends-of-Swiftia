@@ -24,7 +24,8 @@ struct Bag: CustomStringConvertible {
         guard !items.isEmpty else {
             boxedScreen(title: "{ } - Inventory", lines: ["Your bag is empty."])
             pressEnterToContinue()
-            return 
+            playSound(path: closeBagSound)
+            return
         }
 
         let itemLines = items.enumerated().map { (index, item) in
@@ -56,7 +57,9 @@ struct Bag: CustomStringConvertible {
         items[index].usesLeft -= 1
         if items[index].isDepleted() {
             print("\(item.name) has been used up and will be removed.")
+            playSound(path: useItemSound)
             pressEnterToContinue()
+            playSound(path: closeBagSound)
         }
         removeDepletedItems()
     }

@@ -34,6 +34,7 @@ class Warrior: Hero {
         
         if isAttackSuccessful() {
             print("\(name) performs a power strike against \(target.name)!")
+            playSound(path: powerStrikeSound)
             target.takeDamage(amount: strikeDamage)
             endurance -= 10
         } else {
