@@ -50,12 +50,13 @@ With branching narrative choices, strategic stat-based combat, and minimalist in
 6. **Game Over / Victory**  
    - The game ends if the player’s HP reaches 0.
    - A victory message is displayed if the player completes all required events or defeats the final enemy.
-   - Game over and victory states trigger corresponding sound effects.
+   - Game over and victory states trigger sound effects.
 
 7. **Player Input**  
    - Menu choices: Keys 1–4  
    - Open bag: `b`  
    - Quit game: `q`
+   - To continue: `Enter`
 
 ---
 
