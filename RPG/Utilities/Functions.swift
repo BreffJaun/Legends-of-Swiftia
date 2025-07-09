@@ -109,7 +109,7 @@ func waitASec(sec: Double) {
 }
 
 func isAttackSuccessful() -> Bool {
-    return Int.random(in: 1...3) != 3
+    return Int.random(in: 1...4) != 4
 }
 
 
