@@ -36,7 +36,6 @@ class Game {
         clearScreen()
         roundCounter = 1
         minionsSpawned = false
-//        playSound(path: menuSound, loops: -1, volume: 0.005)
         startScreen()
         
         while true {
@@ -84,6 +83,7 @@ class Game {
             let meaningfulLines = step.descriptionLines.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                if !meaningfulLines.isEmpty {
                    boxedScreen(title: step.title, lines: meaningfulLines)
+                   pressEnterToContinue()
                }
                return true
         }
@@ -120,7 +120,7 @@ class Game {
                     waitASec(sec: 1)
                 }
             }
-            let heroesWithEffects = heroes.filter { !$0.statusEffects.isEmpty }
+            let heroesWithEffects = self.heroes.filter { !$0.statusEffects.isEmpty }
 
             for hero in heroesWithEffects {
                 hero.processStatusEffects()
@@ -134,17 +134,19 @@ class Game {
         } while selectedIndex == nil
         
         let choice = step.choices[selectedIndex!]
+        var result: Bool = false
 
         let meaningfulLines = choice.consequenceText.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
         if !meaningfulLines.isEmpty {
             boxedScreen(title: "Consequence", lines: choice.consequenceText)
-//            waitASec(sec: 2)
+            result = choice.effect()
             pressEnterToContinue()
         }
         
+        
+        
 
-        if choice.effect() {
-//            playSound(path: winSound)
+        if result {
             return true
         } else {
             playSound(path: gameOverSound)
@@ -226,36 +228,36 @@ class Game {
         waitASec(sec: 1)
         clearScreen()
         
-//        let intro1 = [
-//                "In a realm forged by magic and steel,",
-//                "the land of Swiftia teeters on the brink of chaos.",
-//                "Ancient evils stir, and forgotten powers awaken once more."
-//            ]
-//
-//        boxedScreen(title: "Prologue", lines: intro1)
-//        waitASec(sec: 3)
-//        clearScreen()
-//
-//        let intro2 = intro1 + [
-//            "",
-//            "Only those brave enough to answer the call",
-//            "can shape the fate of this troubled world."
-//        ]
-//
-//        boxedScreen(title: "Prologue", lines: intro2)
-//        waitASec(sec: 3)
-//        clearScreen()
-//
-//        let intro3 = intro2 + [
-//            "",
-//            "Will you rise as a hero or fall into legend?",
-//            "",
-//            "The journey begins now — destiny awaits..."
-//        ]
-//
-//        boxedScreen(title: "Prologue", lines: intro3)
-//        waitASec(sec: 3)
-//        pressEnterToContinue()
+        let intro1 = [
+                "In a realm forged by magic and steel,",
+                "the land of Swiftia teeters on the brink of chaos.",
+                "Ancient evils stir, and forgotten powers awaken once more."
+            ]
+
+        boxedScreen(title: "Prologue", lines: intro1)
+        waitASec(sec: 3)
+        clearScreen()
+
+        let intro2 = intro1 + [
+            "",
+            "Only those brave enough to answer the call",
+            "can shape the fate of this troubled world."
+        ]
+
+        boxedScreen(title: "Prologue", lines: intro2)
+        waitASec(sec: 3)
+        clearScreen()
+
+        let intro3 = intro2 + [
+            "",
+            "Will you rise as a hero or fall into legend?",
+            "",
+            "The journey begins now — destiny awaits..."
+        ]
+
+        boxedScreen(title: "Prologue", lines: intro3)
+        waitASec(sec: 3)
+        pressEnterToContinue()
     }
     
     func menu() {
@@ -274,9 +276,9 @@ class Game {
             ""
         ]
 
-        var selection: String?
+//        var selection: String?
 
-        repeat {
+        while true {
             boxedScreen(title: "Main Menu", lines: options)
             print("Enter your choice [1] or [2]: ", terminator: "")
             
@@ -297,7 +299,7 @@ class Game {
                     clearScreen()
                 }
             }
-        } while selection == nil
+        }
     }
 
     

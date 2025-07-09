@@ -218,7 +218,7 @@ extension Game {
                         description: ["Touch the pool of still water"],
                         effect: {
                             for hero in self.heroes {
-                                let freeze = StatusEffect(type: .curse, duration: 2)
+                                let freeze = StatusEffect(type: .freeze, duration: 2)
                                 hero.applyStatus(status: freeze)
                             }
                             return true
@@ -380,7 +380,7 @@ extension Game {
 //                ]
 //            ),
 
-            // STEP 6: Transition – Epilogue
+            // TRANSITION SCENE 6 – Epilogue
             StoryStep(
                 title: "Transition: Sunbeams through the Mist",
                 descriptionLines: [
@@ -641,7 +641,6 @@ extension Game {
             return true // prüfen ob er dann nicht ganz aus dem Spiel geht!
         } else {
             boxedScreen(title: "Defeat!", lines: ["Your party has fallen in battle."])
-//            exit(0)
             return false
         }
     }
@@ -649,10 +648,6 @@ extension Game {
     func getStatusLines(heroes: [Hero], enemies: [Enemy]) -> [String] {
         var lines: [String] = []
         lines += ["-=== Your  Party ===-", ""]
-//        for hero in heroes {
-//            lines.append("\(hero.name): \(hero.hp)/\(hero.maxHp) HP")
-//        }
-        
         for hero in heroes {
             if let warrior = hero as? Warrior {
                 lines.append("\(warrior.name): \(warrior.hp)/\(warrior.maxHp) HP | \(warrior.endurance)/\(warrior.maxEndurance) EN")
