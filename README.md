@@ -3,12 +3,6 @@
 
 ## 🧙‍♂️ Game Description
 
-**Legends of Swiftia** is a turn-based text RPG built in Swift. The player takes control of a main hero—either a **Warrior**, **Magician**, or **Cleric**—and embarks on a journey through a dark, fantasy world. Along the way, the player recruits companions, engages in tactical combat against a variety of enemies, and makes choices that affect the outcome of the story.
-
-Each character class has unique abilities and interacts differently with the story. The game blends branching narrative choices with stat-based combat and simple inventory management.
-
----
-
 **Legends of Swiftia** is a turn-based text RPG built in Swift. The player takes control of a main hero—either a **Warrior**, **Magician**, or **Cleric**—and ventures into a dark, mysterious fantasy realm. Each class offers unique abilities and perspectives that shape the journey and influence the unfolding story.
 
 The world of Swiftia is divided into three treacherous regions:
