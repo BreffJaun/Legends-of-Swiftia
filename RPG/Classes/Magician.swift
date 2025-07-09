@@ -47,7 +47,11 @@ class Magician: Hero {
     }
     
     override func skipToRecharge() {
-        mana += 10
+        if mana + 10 <= maxMana {
+            mana += 10
+        } else {
+            mana = maxMana
+        }
         print("\(name) sits out a round to gather his magical strength!")
     }
     

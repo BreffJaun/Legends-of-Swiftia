@@ -39,7 +39,11 @@ class Cleric: Hero {
     }
     
     override func skipToRecharge() {
-        holyPower += 10
+        if holyPower + 10 <= maxHolyPower {
+            holyPower += 10
+        } else {
+            holyPower = maxHolyPower
+        }
         print("\(name) sits out a round to gather his spritual strength!")
     }
     
