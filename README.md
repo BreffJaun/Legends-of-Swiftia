@@ -9,6 +9,22 @@ Each character class has unique abilities and interacts differently with the sto
 
 ---
 
+**Legends of Swiftia** is a turn-based text RPG built in Swift. The player takes control of a main hero—either a **Warrior**, **Magician**, or **Cleric**—and ventures into a dark, mysterious fantasy realm. Each class offers unique abilities and perspectives that shape the journey and influence the unfolding story.
+
+The world of Swiftia is divided into three treacherous regions:
+
+    Emerald Grove, a lush but cursed forest teeming with corrupted beasts.
+
+    Crimson Thicket, a blood-red woodland haunted by vengeful spirits.
+
+    Obsidian Hollow, a shadow-cloaked wilderness ruled by ancient evils.
+
+In each forest, players face challenging enemies and must overcome a powerful boss—culminating in the final confrontation against Justulor, a malevolent force threatening all of Swiftia.
+
+With branching narrative choices, strategic stat-based combat, and minimalist inventory management, Legends of Swiftia delivers an immersive RPG experience—all within the terminal. The game’s interface leverages custom-rendered text boxes and paginated menus for a visually structured, interactive journey.
+
+---
+
 ## 🎮 Gameplay Flow
 <img src=RPG/img/gameplay_screenshot.png width=75%>
 
