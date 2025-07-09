@@ -48,7 +48,7 @@ class Cleric: Hero {
     }
     
     override func normalRecharge() {
-        holyPower += 2
+        holyPower += 5
         if holyPower > maxHolyPower {
             holyPower = maxHolyPower
         }

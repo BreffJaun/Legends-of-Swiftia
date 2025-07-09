@@ -56,7 +56,7 @@ class Magician: Hero {
     }
     
     override func normalRecharge() {
-        mana += 2
+        mana += 5
         if mana > maxMana {
             mana = maxMana
         }

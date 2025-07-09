@@ -56,7 +56,7 @@ class Warrior: Hero {
     }
     
     override func normalRecharge() {
-        endurance += 2
+        endurance += 5
         if endurance > maxEndurance {
             endurance = maxEndurance
         }

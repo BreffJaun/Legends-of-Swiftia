@@ -25,7 +25,7 @@ extension Game {
                     Choice(
                         description: ["Approach the rustling bushes"],
                         effect: {
-                            return self.fight(heroes: self.heroes, minions: 2)
+                            return self.fight(minions: 2)
                         },
                         consequenceText: [
                             "As you step closer, two twisted rootlings leap out!",
@@ -141,7 +141,7 @@ extension Game {
                     Choice(
                         description: ["Clear the thick vines blocking your way"],
                         effect: {
-                            return self.fight(heroes: self.heroes, minions: 3)
+                            return self.fight(minions: 3)
                         },
                         consequenceText: [
                             "As you cut through, thornlings burst from the thicket!",
@@ -202,7 +202,7 @@ extension Game {
                     Choice(
                         description: ["Call out to the voices"],
                         effect: {
-                            return self.fight(heroes: self.heroes, minions: 2)
+                            return self.fight(minions: 2)
                         },
                         consequenceText: [
                             "Phantom shades emerge, cloaked in fog!",
@@ -284,7 +284,7 @@ extension Game {
                     Choice(
                         description: ["Tread near the cracked earth"],
                         effect: {
-                            return self.fight(heroes: self.heroes, minions: 4)
+                            return self.fight(minions: 4)
                         },
                         consequenceText: [
                             "Burrowers erupt from the cracks, howling hungrily!",
@@ -336,7 +336,7 @@ extension Game {
 //                            return self.fight(heroes: self.heroes, minions: 4)
                             let duc = Minion(name: "Duc", hp: 60)
                             let dukas = Minion(name: "Dukas", hp: 60)
-                            return self.fight(heroes: self.heroes, minions: 0, presetEnemies: [duc, dukas])
+                            return self.fight(minions: 0, presetEnemies: [duc, dukas])
                         },
                         consequenceText: [
                             "Duc raises his stone club and roars angrily",
@@ -519,7 +519,7 @@ extension Game {
     }
     
     
-    func fight(heroes: [Hero], minions: Int, presetEnemies: [Enemy] = []) -> Bool {
+    func fight(minions: Int, presetEnemies: [Enemy] = []) -> Bool {
         let player = self.heroes[0]
         let companions = self.heroes.dropFirst().filter { $0.isAlive() } // Dropped myself on index 0
         var hasShownBattleStand = false
@@ -659,7 +659,7 @@ extension Game {
                 
                 // MARK: ENEMY ACTIONS
                 for enemy in self.enemies {
-                    if let target = heroes.randomElement() {
+                    if let target = self.heroes.randomElement() {
                         boxedScreen(title: "\(enemy.name)'s Turn", lines: [
                             "\(enemy.name) attacks \(target.name)!"
                         ])
@@ -686,8 +686,8 @@ extension Game {
             return true // prüfen ob er dann nicht ganz aus dem Spiel geht!
         } else {
             boxedScreen(title: "Defeat!", lines: ["Your party has fallen in battle."])
-            exit(0)
-//            return false
+//            exit(0)
+            return false
         }
     }
     
