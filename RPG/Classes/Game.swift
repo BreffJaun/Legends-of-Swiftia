@@ -46,7 +46,6 @@ class Game {
             let storySteps: [StoryStep]
             switch difficulty {
             case .easy:
-                playSound(path: gameplayEasySound, loops: -1, volume: 0.05)
                 storySteps = easyStorySteps()
             case .medium:
                 return
@@ -59,6 +58,7 @@ class Game {
             }
 
             for step in storySteps {
+                checkGamePlayMusic()
                 let shouldContinue = round(step: step)
                 if !shouldContinue {
                     break 

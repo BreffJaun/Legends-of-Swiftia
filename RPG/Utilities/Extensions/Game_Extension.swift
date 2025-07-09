@@ -506,6 +506,8 @@ extension Game {
                     break
                 }
                 
+                checkGamePlayMusic()
+                
                 boxedScreen(title: "Your Turn, \(hero.name)", lines: [
                     "Choose action:",
                     "",
@@ -686,4 +688,14 @@ extension Game {
         let statusEffects: [StatusEffectType] = [.poison, .paralyze, .burn, .freeze, .curse]
         return statusEffects.randomElement()!
    }
+    
+    func checkGamePlayMusic() {
+        if difficulty == .easy {
+            playSound(path: gameplayEasySound, loops: -1, volume: 0.05)
+        } else if difficulty == .medium {
+            playSound(path: gameplayMediumSound, loops: -1, volume: 0.05)
+        } else {
+            playSound(path: gameplayHardSound, loops: -1, volume: 0.05)
+        }
+    }
 }
