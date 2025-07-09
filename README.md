@@ -7,11 +7,11 @@
 
 The world of Swiftia is divided into three treacherous regions:
 
-    Emerald Grove, a lush but cursed forest teeming with corrupted beasts.
+    Emerald Grove, a bright and welcoming forest. Home of Duc & Dukas, Keepers of the Confused.
 
-    Crimson Thicket, a blood-red woodland haunted by vengeful spirits.
+    Twilight Thicket, where shadows linger between twisted trees. Domain of Martinius, the Examiner..
 
-    Obsidian Hollow, a shadow-cloaked wilderness ruled by ancient evils.
+    Whispering Abyss, where only the brave dare enter. Where Justulor, Warden of Exams, awaits...
 
 In each forest, players face challenging enemies and must overcome a powerful boss—culminating in the final confrontation against Justulor, a malevolent force threatening all of Swiftia.
 
