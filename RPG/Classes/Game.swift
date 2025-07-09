@@ -133,7 +133,8 @@ class Game {
         let meaningfulLines = choice.consequenceText.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
         if !meaningfulLines.isEmpty {
             boxedScreen(title: "Consequence", lines: choice.consequenceText)
-            waitASec(sec: 2)
+//            waitASec(sec: 2)
+            pressEnterToContinue()
         }
         
 

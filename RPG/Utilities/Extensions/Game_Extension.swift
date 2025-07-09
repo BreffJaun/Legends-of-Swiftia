@@ -369,68 +369,6 @@ extension Game {
                     )
                 ]
             )
-
-            
-            
-//            StoryStep(
-//                title: "Step 5: Forgotten Shrine",
-//                descriptionLines: [
-//                    "An ancient shrine looms in a clearing.",
-//                    "Strange symbols glow faintly along its stones.",
-//                    "You feel watched, yet welcomed."
-//                ],
-//                choices: [
-//                    // HARMLOS
-//                    Choice(
-//                        description: ["Sit peacefully among the shrine stones"],
-//                        effect: { return true },
-//                        consequenceText: [
-//                            "Time passes slowly, quietly.",
-//                            "You feel spiritually centered, untouched by harm."
-//                        ]
-//                    ),
-//                    // STATUS
-//                    Choice(
-//                        description: ["Trace the runes with your fingers"],
-//                        effect: {
-//                            if let hero = self.heroes.randomElement() {
-//                                let burn = StatusEffect(type: .burn, duration: 3)
-//                                hero.applyStatus(status: burn)
-//                            }
-//                            return true
-//                        },
-//                        consequenceText: [
-//                            "The runes flare, burning your skin.",
-//                            "One hero bears the mark—cursed with burning pain."
-//                        ]
-//                    ),
-//                    // ITEM
-//                    Choice(
-//                        description: ["Offer a prayer at the shrine"],
-//                        effect: {
-//                            for hero in self.heroes {
-//                                hero.bag.items.append(Item(name: "Blessed Stone", health: 0, damage: 0, defense: 7, usesLeft: 1))
-//                            }
-//                            return true
-//                        },
-//                        consequenceText: [
-//                            "Warmth fills your hearts as a gift appears at your feet.",
-//                            "You receive sacred stones imbued with ancient protection."
-//                        ]
-//                    ),
-//                    // FIGHT
-//                    Choice(
-//                        description: ["Inspect the idol at the shrine's center"],
-//                        effect: {
-//                            return self.fight(heroes: self.heroes, minions: 3)
-//                        },
-//                        consequenceText: [
-//                            "The idol awakens! Stone guardians emerge from the earth.",
-//                            "Your challenge has been accepted."
-//                        ]
-//                    )
-//                ]
-//            ),
             
 //            StoryStep(
 //                title: "Final Step: The Office of Doom",
