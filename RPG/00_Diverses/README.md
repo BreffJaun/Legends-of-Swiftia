@@ -95,11 +95,6 @@
 // - Story Screen (set which type of Story you want to play (easy, middle, hard) ✅
 // - Summary Screen (shows the summary of which was choosed (Hero for yourself. Hero KI and which Story) ✅
 
-❌☑️
-
-
-
-
 
 # UML Diagram
 <img src=RPG_UML.png/>
