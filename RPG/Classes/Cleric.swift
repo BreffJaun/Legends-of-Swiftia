@@ -24,10 +24,11 @@ class Cleric: Hero {
     
     func massHeal(heroes: [Hero]) {
         let healAmount = 10
-        
+                
         if isAttackSuccessful() {
             print("\(name) heals all allies by \(healAmount) HP!")
             heroes.forEach { $0.heal(amount: healAmount) }
+            holyPower -= 10
         } else {
             holyPower -= 10
             print("\(name)´s attack missed!")

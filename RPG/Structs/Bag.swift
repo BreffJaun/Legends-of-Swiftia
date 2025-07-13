@@ -29,7 +29,6 @@ struct Bag: CustomStringConvertible {
         }
 
         let itemLines = items.enumerated().map { (index, item) in
-//            "(\(index + 1)) ➤ \(item.name) – \(item.description) (\(item.usesLeft)x)"
             "(\(index + 1)) ➤ \(item.name) (\(item.usesLeft)x)"
         }
 

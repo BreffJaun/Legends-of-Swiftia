@@ -60,8 +60,8 @@ class Boss: Enemy {
         }
         
         print("\(name) summoned minions!")
-        let protMinion1 = Minion(name: "Protector Minion 1 of \(name)", hp: 30)
-        let protMinion2 = Minion(name: "Protector Minion 2 of \(name)", hp: 30)
+        let protMinion1 = Minion(name: "Warden 1 of \(name)", hp: 30)
+        let protMinion2 = Minion(name: "Warden 2 of \(name)", hp: 30)
         let protectorMinions = [protMinion1, protMinion2]
         hasSummonedMinions = true
         return protectorMinions

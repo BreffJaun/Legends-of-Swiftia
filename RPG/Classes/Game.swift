@@ -15,14 +15,8 @@ class Game {
     var roundCounter: Int = 0
     var minionsSpawned: Bool = false
     var difficulty: Difficulty?
-    
-//    init(heroes: [Hero], enemies: [Enemy], roundCounter: Int, minionsSpawned: Bool) {
-//        self.heroes = heroes
-//        self.enemies = enemies
-//        self.roundCounter = roundCounter
-//        self.minionsSpawned = minionsSpawned
-//    }
-    
+    var win: Bool = true
+       
     func initGame() {
         chooseHero()
         setCompanions()
@@ -47,11 +41,9 @@ class Game {
             case .easy:
                 storySteps = easyStorySteps()
             case .medium:
-                return
-        //      storySteps = normalStorySteps
+                storySteps = mediumStorySteps()
             case .hard:
-                return
-        //      storySteps = hardStorySteps
+                storySteps = hardStorySteps()
             case nil:
                 return
             }
@@ -60,18 +52,30 @@ class Game {
                 checkGamePlayMusic()
                 let shouldContinue = round(step: step)
                 if !shouldContinue {
-                    break 
+                    win = false
+                    break
+                } else {
+                    win = true
                 }
-//                pressEnterToContinue()
             }
             playSound(path: winSound)
             resetSettings()
-            boxedScreen(title: "Legends of Swiftia", lines: [
-                "You have conquered darkness and restored peace.",
-                "Swiftia shall never forget your name.",
-                "",
-                "Thank you for playing!"
-            ])
+            if win {
+                boxedScreen(title: "Legends of Swiftia", lines: [
+                    "You have conquered darkness and restored peace.",
+                    "Swiftia shall never forget your name.",
+                    "",
+                    "Thank you for playing!"
+                ])
+            } else {
+                boxedScreen(title: "Legends of Swiftia", lines: [
+                    "Your journey ends in shadows and silence.",
+                    "Swiftia falls deeper into darkness.",
+                    "",
+                    "Brave heroes… your efforts shall be remembered."
+                ])
+            }
+            
             waitASec(sec: 4)
         }
     }
@@ -100,7 +104,7 @@ class Game {
             let fullText = step.descriptionLines + [""] + choiceTexts
             
             boxedScreen(title: step.title, lines: fullText)
-            print("Enter [1], [2], [3], [4] for a choice, [b] Open bag, (q) ➤ Quit game: ", terminator: "")
+            print("Enter [1], [2], [3], [4] for a choice, [b] Open bag, [q] ➤ Quit game: ", terminator: "")
             waitASec(sec: 1)
                     
         
@@ -143,9 +147,6 @@ class Game {
             pressEnterToContinue()
         }
         
-        
-        
-
         if result {
             return true
         } else {
@@ -223,7 +224,7 @@ class Game {
         ]
 
 
-        boxedScreen(title: "Start Screen", lines: title)
+        boxedScreen(title: "Welcome to...", lines: title)
         pressEnterToContinue()
         waitASec(sec: 1)
         clearScreen()
@@ -290,7 +291,7 @@ class Game {
                     initGame()
                     return
                 case "2":
-                    print("You walk away from the tale of Swiftia. The legends will go on — without you...")
+                    print("\nYou walk away from the tale of Swiftia. The legends will go on — without you...")
                     waitASec(sec: 2)
                     exit(0)
                 default:
@@ -435,7 +436,7 @@ class Game {
         if numberOfCompanions! > 0 {
             for i in 1...numberOfCompanions! {
                 var description = baseCompanionDescription
-                description[0] = companionIntroLines[i - 1] // Zeile 0 ersetzen
+                description[0] = companionIntroLines[i - 1]
                 
                 boxedScreen(
                     title: "Select Companion \(i)",
@@ -503,11 +504,6 @@ class Game {
     }
     
     func setDifficultyLevel() -> Difficulty {
-//        let difficultyDescriptions = [
-//            "(1) {~} Emerald Grove     - A bright and welcoming forest. (Easy)",
-//            "(2) {^} Twilight Thicket  - Shadows linger here.           (Medium)",
-//            "(3) [O] Whispering Abyss  - Only the brave dare enter.     (Hard)"
-//        ]
         let difficultyDescriptions = [
             "(1) {~} Emerald Grove                             [Easy]",
             "     - A bright and welcoming forest.",

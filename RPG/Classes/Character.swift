@@ -51,11 +51,6 @@ class Character: CustomStringConvertible {
     }
     
     func attack(target: Character) {
-        guard canAct() else {
-            print("\(name) is \(statusEffects.first { $0.type == .freeze || $0.type == .paralyze }!.type.rawValue) and cannot act this turn!")
-            return
-        }
-    
         let variation = Int.random(in: -2...2)
         let totalDamage = max(0, damage + variation)
         

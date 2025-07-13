@@ -25,7 +25,7 @@ class Magician: Hero {
     func castFireball(enemies: [Enemy]) {
         let manaCost = 10
         let fireballDamage = 15
-        
+                
         guard mana >= manaCost else {
             print("\(name) doesn't have enough mana for a fireball!")
             return

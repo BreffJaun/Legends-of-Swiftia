@@ -35,7 +35,7 @@ func boxedScreen(title: String, lines: [String]) {
 
     let paddedLines = lines.map { indent + $0 }
     let maxContentLines = height - 4
-    let displayedLines = paddedLines.prefix(maxContentLines)
+    let displayedLines = paddedLines.prefix(maxContentLines)// nur so viele Lines wie maxContentLines vorgibt
     let emptyLinesCount = max(0, maxContentLines - displayedLines.count)
     var contentLines = Array(displayedLines) + Array(repeating: "", count: emptyLinesCount)
     contentLines.insert("", at: 0)
@@ -121,17 +121,6 @@ func isAttackSuccessful() -> Bool {
 var audioPlayer: AVAudioPlayer?
 var loop: Int?
 let basePath: String = "/Users/jeffbr/Documents/02-abschluss-rpg-BreffJaun/RPG/Sounds"
-
-//func playSound(path: String, loops: Int = 1) {
-//    let url = URL(fileURLWithPath: path)
-//    do {
-//        audioPlayer = try AVAudioPlayer(contentsOf: url)
-//        audioPlayer?.numberOfLoops = loops
-//        audioPlayer?.play()
-//    } catch {
-//        print("Error when playing the sound: \(error) -- \(error.localizedDescription)")
-//    }
-//}
 
 func playSound(path: String, loops: Int = 0, volume: Float = 0.1) {
     let url = URL(fileURLWithPath: path)
