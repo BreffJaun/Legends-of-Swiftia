@@ -60,6 +60,48 @@ With branching narrative choices, strategic stat-based combat, and minimalist in
 
 ---
 
+## 🛠️ How to Play
+
+### ▶️ Option 1: Run with Xcode (Recommended for macOS users)
+
+1. Open the GitHub repository.
+2. Click **Code** > **Open with Xcode** (Xcode must be installed).
+3. In Xcode, ensure `main.swift` is selected as the entry point.
+4. Click the **Play** button (or press `Cmd + R`) to run the game in the terminal window.
+
+> 💡 Tip: If the play button is disabled, make sure the correct build target is selected in the top scheme menu.
+
+---
+
+### 🧪 Option 2: Run the Built Game Manually via Terminal
+
+If you prefer to clone and run the project manually:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/legends-of-swiftia.git
+   cd legends-of-swiftia
+   
+2. Open the project in Xcode and build it once (Cmd + B).
+
+3. Navigate to the following folder:
+
+```
+/Users/<your-username>/Library/Developer/Xcode/DerivedData/<ProjectName>/Build/Products/Debug/
+```
+
+4. Locate the Unix executable file (e.g., LegendsOfSwiftia).
+
+5. Open Terminal and run the game with:
+
+```
+./LegendsOfSwiftia
+```
+
+⚠️ Note: On first run, macOS might prompt for permissions (e.g., Terminal access). Allow them to ensure the game runs properly.
+
+---
+
 ## ⚙️ Technical Details
 
 - **Language:** Swift (latest version)
