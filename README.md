@@ -117,4 +117,15 @@ If you prefer to clone and run the project manually:
 - **Display:** Terminal-based interface using framed output (`boxedScreen`) and paginated views (`pagedBox`) for a structured, interactive experience.
 - **State Management:** Runtime only; no save/load yet implemented.
 
+---
+
+📝 Disclaimer
+
+This project was developed as part of my training. The source code, structure and documentation are my own work.
+
+© 2025 Jeff Braun. All rights reserved. Licensed under the [MIT License](./LICENSE).
+
+
+
+
 
