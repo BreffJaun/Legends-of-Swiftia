@@ -1,4 +1,9 @@
 ## Legends of Swiftia
+
+![Swift](https://img.shields.io/badge/Swift-5-orange?logo=swift&logoColor=white)
+![Xcode](https://img.shields.io/badge/Xcode-16.4-blue?logo=xcode&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+
 <img src=RPG/img/mainMenu_screenshot.png width=75%>
 
 ## 🧙‍♂️ Game Description
